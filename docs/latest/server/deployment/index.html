@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+  <head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deployment | openvpn-bosh-release</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
+<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-37464314-3', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    <style type="text/css">
+      body > .section {
+        padding-top: 1.75rem;
+      }
+      nav#TableOfContents > ul,
+      nav#TableOfContents > ul > li > ul {
+        list-style: none;
+        margin-left: 0;
+      }
+      nav#TableOfContents > ul > li > a {
+        display: none;
+      }
+    </style>
+  </head>
+  <body><nav class="navbar is-info" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="https://dpb587.github.io/openvpn-bosh-release">
+      
+        <img height="28" src="https://github.com/dpb587.png" style="border-radius:4px;margin-right:0.5rem">
+      
+      openvpn-bosh-release
+    </a>
+
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarExpanded">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarExpanded" class="navbar-menu">
+    <div class="navbar-start">
+      
+        <a class="navbar-item" href="/openvpn-bosh-release/docs/latest/">docs</a>
+      
+        <a class="navbar-item" href="/openvpn-bosh-release/releases/">releases</a>
+      
+        <a class="navbar-item" href="https://github.com/dpb587/openvpn-bosh-release">github</a>
+      
+    </div>
+
+    <div class="navbar-end"><div class="navbar-item" style="padding-left:0">
+          <a class="navbar-item" href="https://bosh.io/" title="BOSH" style="background-color:#fff;border-radius:4px;padding:.5rem">
+            <img height="28" src="/openvpn-bosh-release/img/cff-bosh.png" style="border-radius:4px">
+          </a>
+        </div></div>
+  </div>
+</nav>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+    if ($navbarBurgers.length > 0) {
+      $navbarBurgers.forEach( el => {
+        el.addEventListener('click', () => {
+          const target = el.dataset.target;
+          const $target = document.getElementById(target);
+
+          el.classList.toggle('is-active');
+          $target.classList.toggle('is-active');
+        });
+      });
+    }
+  });
+</script>
+
+<section class="section">
+      <div class="columns">
+        <div class="column">
+  
+  <aside class="menu">
+    <ul class="menu-list">
+<li><a href="/openvpn-bosh-release/docs/latest/">Overview</a></li>
+<li><a href="/openvpn-bosh-release/docs/latest/release-practices/">Release Practices</a></li>
+</ul>
+
+<p class="menu-label">Server Operations</p>
+
+<ul class="menu-list">
+<li><a class="is-active" href="/openvpn-bosh-release/docs/latest/server/deployment/">Deployment</a></li>
+<li><a href="/openvpn-bosh-release/docs/latest/server/advanced/">Advanced Settings</a></li>
+<li><a href="/openvpn-bosh-release/docs/latest/pki/">PKI Operations</a>
+
+<ul class="menu-list">
+<li><a href="/openvpn-bosh-release/docs/latest/pki/manual-ca-easyrsa/">Manual CA (easyrsa)</a></li>
+</ul></li>
+</ul>
+
+<p class="menu-label">Client Operations</p>
+
+<ul class="menu-list">
+<li><a href="/openvpn-bosh-release/docs/latest/client/deployment/">Deployment</a></li>
+<li><a href="/openvpn-bosh-release/docs/latest/client/end-user-software/">End-User Software</a></li>
+</ul>
+
+
+
+
+
+<p class="menu-label">Latest Release (v5.7.0)</p>
+<ul class="menu-list">
+  
+  <li><a href="/openvpn-bosh-release/releases/v5.7.0/">Overview</a></li>
+  
+    <li><a href="/openvpn-bosh-release/jobs/openvpn/v5.7.0/">openvpn</a></li>
+  
+    <li><a href="/openvpn-bosh-release/jobs/openvpn-client/v5.7.0/">openvpn-client</a></li>
+  
+    <li><a href="/openvpn-bosh-release/jobs/openvpn-clients/v5.7.0/">openvpn-clients</a></li>
+  
+</ul>
+
+
+  </aside>
+
+</div>
+        <div class="column is-four-fifths">
+          
+  <div class="columns">
+    <div class="column is-four-fifths">
+  
+  
+
+  
+    
+      
+      
+    
+  
+
+  
+    
+    
+    
+      
+    
+
+    <div class="is-size-5 is-pulled-right">
+      <a href="https://github.com/dpb587/openvpn-bosh-release/blob/master/docs/server/deployment.md" rel="noopener" target="_blank" title="Contribute changes to this page" style="opacity:0.7">
+        <i class="fas fa-pencil-alt"></i>
+      </a>
+    </div>
+  
+
+<article class="content">
+
+<h1 id="server-deployment">Server Deployment</h1>
+
+<p>The repository includes manifests for basic deployment configurations inside the <a href="../../../deployment"><code>deployment</code></a> directory for quickly creating a standalone OpenVPN server and client configuration. This is a great way to get started, but you should familiarize yourself with OpenVPN and key management practices before using it with a team. For more advanced needs, consider deploying this release with BOSH director and CredHub.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<p>Make sure you have several tools installed&hellip;</p>
+
+<ul>
+<li><code>bosh</code> - from <a href="http://bosh.io/docs/cli-v2#install">bosh.io</a></li>
+<li><code>ruby</code> - used by <code>bosh</code> to generate server configuration files</li>
+<li><code>openvpn</code> - for <a href="/openvpn-bosh-release/docs/latest/client/end-user-software/">connecting</a> from your workstation</li>
+</ul>
+
+<h2 id="configuration">Configuration</h2>
+
+<p>Start a YAML configuration file named <code>openvpn-creds.yml</code> which will contain simple key/value settings for the server. This will contain credentials, so be sure to manage and store the file securely. To start, decide a few core settings and update the configuration file using the following as a template.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#75715e"># the starting address of the VPN network assigned to clients</span>
+vpn_network: <span style="color:#ae81ff">192.168</span>.<span style="color:#ae81ff">250.0</span>
+
+<span style="color:#75715e"># the VPN network mask (as both IP and bits)</span>
+vpn_network_mask: <span style="color:#ae81ff">255.255</span>.<span style="color:#ae81ff">255.0</span>
+vpn_network_mask_bits: <span style="color:#ae81ff">24</span>
+
+<span style="color:#75715e"># IaaS/LAN internal network</span>
+lan_network: <span style="color:#ae81ff">10.10</span>.<span style="color:#ae81ff">250.0</span>
+lan_network_mask: <span style="color:#ae81ff">255.255</span>.<span style="color:#ae81ff">255.0</span>
+lan_network_mask_bits: <span style="color:#ae81ff">24</span>
+lan_gateway: <span style="color:#ae81ff">10.10</span>.<span style="color:#ae81ff">250.1</span>
+lan_ip: <span style="color:#ae81ff">10.10</span>.<span style="color:#ae81ff">250.9</span>
+
+<span style="color:#75715e"># IaaS/WAN public IP address</span>
+wan_ip: <span style="color:#ae81ff">123.123</span>.<span style="color:#ae81ff">123.123</span></code></pre></div>
+<h3 id="optional-features">Optional Features</h3>
+
+<p>There are several <code>with-*.yml</code> files which can be used to change some behaviors of the server. To use, include them in the later <code>create-env</code> command, and be sure to add documented settings to the configuration file.</p>
+
+<h4 id="gateway-redirection">Gateway Redirection</h4>
+
+<p>If you want to force clients to redirect all their traffic through the VPN server, include the <code>-o with-gateway-redirection.yml</code> option.</p>
+
+<h4 id="log-forwarding">Log Forwarding</h4>
+
+<p>If you want to forward system and OpenVPN logs to a syslog server, include the <code>-o with-log-forwarding.yml</code> option. Be sure to add a few more settings to <code>openvpn-creds.yml</code>&hellip;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#75715e"># the syslog server host and port</span>
+syslog_address: logs12345.papertrailapp.com
+syslog_port: <span style="color:#ae81ff">12345</span>
+
+<span style="color:#75715e"># the protocol to use (tcp, udp, or relp)</span>
+syslog_transport: tcp
+
+<span style="color:#75715e"># whether to use TLS</span>
+syslog_tls_enabled: <span style="color:#66d9ef">true</span></code></pre></div>
+<h4 id="ssh-access">SSH Access</h4>
+
+<p>If you want SSH access with the user <code>openvpn</code>, include the <code>-o with-ssh.yml</code> option. To use an existing public key, set <code>ssh.public_key</code> in <code>openvpn-creds.yml</code>&hellip;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">ssh:
+  public_key: ssh-rsa ....</code></pre></div>
+<p>If you do not set <code>ssh</code>, a key will be generated during deployment. You can reference the generated private key by running <code>bosh int openvpn-creds.yml --path=/ssh/private_key</code>.</p>
+
+<h2 id="infrastructure">Infrastructure</h2>
+
+<p>Identify which IaaS you will be deploying to (e.g. Amazon Web Services, Google, vSphere). You should create a firewall in your IaaS to restrict access to the server.</p>
+
+<p>The following ingress ports are used&hellip;</p>
+
+<ul>
+<li><code>22/tcp</code> - SSH access (only required to enable SSH access, or for some IaaSes during provisioning)</li>
+<li><code>1194/tcp</code> - OpenVPN</li>
+<li><code>6868/tcp</code> - BOSH management service (only required during provisioning)</li>
+</ul>
+
+<p>You may want to restrict egress traffic, depending on your requirements.</p>
+
+<h3 id="amazon-web-services-aws">Amazon Web Services (<code>aws</code>)</h3>
+
+<p>AWS requires the additional settings that you should add to <code>openvpn-creds.yml</code> using the following template&hellip;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#75715e"># region and availability zone to deploy to</span>
+region: us-east-<span style="color:#ae81ff">1</span>
+availability_zone: us-east-1d
+
+<span style="color:#75715e"># VPC subnet to deploy to</span>
+subnet_id: subnet-a1b2c3d4
+
+<span style="color:#75715e"># a specific, private IP address for the VM</span>
+internal_ip: <span style="color:#ae81ff">10.10</span>.<span style="color:#ae81ff">250.9</span>
+
+<span style="color:#75715e"># security group IDs to apply to the VM</span>
+default_security_groups: [sg-a1b2c3d4]
+
+<span style="color:#75715e"># an already-registered key pair name, and path to the ssh private key</span>
+bootstrap_ssh_key_name: default
+bootstrap_ssh_key_path: ~/.ssh/id_rsa</code></pre></div>
+<p>While provisioning to AWS, SSH access will be required. Ensure port <code>22/tcp</code> is open, although it can be disabled once provisioning is finished.</p>
+
+<p>Ensure the standard <code>AWS_ACCESS_KEY_ID</code> and <code>AWS_SECRET_ACCESS_KEY</code> environment variables are set. When running the <code>create-env</code> command, you&rsquo;ll need to append the following arguments to the command&hellip;</p>
+
+<pre><code>-o init-aws.yml -v access_key_id=&quot;$AWS_ACCESS_KEY_ID&quot; -v secret_access_key=&quot;$AWS_SECRET_ACCESS_KEY&quot;
+</code></pre>
+
+<h3 id="google-cloud-platform-google">Google Cloud Platform (<code>google</code>)</h3>
+
+<p>GCP requires the additional settings that you should add to <code>openvpn-creds.yml</code> using the following template&hellip;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#75715e"># the project to use</span>
+project_id: openvpn-test
+
+<span style="color:#75715e"># the zone to deploy to</span>
+zone: us-east1-b
+
+<span style="color:#75715e"># the network and subnetwork to deploy to</span>
+network: default
+subnetwork: default
+
+<span style="color:#75715e"># zero or more tags to apply to the VM</span>
+tags: [openvpn]</code></pre></div>
+<p>Ensure you have a service account file. When running the <code>create-env</code> command, you&rsquo;ll need to append the following arguments to the command&hellip;</p>
+
+<pre><code>-o init-google.yml --var-file gcp_credentials_json=~/.config/gcloud/application_default_credentials.json
+</code></pre>
+
+<h2 id="deploy">Deploy</h2>
+
+<p>Once everything has been configured, run the full <code>create-env</code> command. Be sure to add IaaS and feature-specific arguments to the command, as necessary.</p>
+
+<pre><code>bosh create-env openvpn.yml --vars-store openvpn-creds.yml # add extra arguments
+</code></pre>
+
+<p>For example, if using AWS with log forwarding and gateway redirection, the full command would look like&hellip;</p>
+
+<pre><code>bosh create-env openvpn.yml --vars-store openvpn-creds.yml \
+  -o init-aws.yml -v access_key_id=&quot;$AWS_ACCESS_KEY_ID&quot; -v secret_access_key=&quot;$AWS_SECRET_ACCESS_KEY&quot; \
+  -o with-syslog-forwarding.yml \
+  -o with-gateway-redirection.yml
+</code></pre>
+
+<p>You may want to document the full command in a simple shell script to avoid reconstructing the command in the future.</p>
+
+<p>After the command has completed, there will be an <code>openvpn-state.json</code> file - be sure to retain it in addition to your <code>openvpn-creds.yml</code>.</p>
+
+<h2 id="client-setup">Client Setup</h2>
+
+<p>After the server is running, you can generate an OpenVPN connection profile for <a href="/openvpn-bosh-release/docs/latest/client/end-user-software/">a client</a>&hellip;</p>
+
+<pre><code>bosh interpolate --vars-store openvpn-client-creds.yml -l openvpn-creds.yml --path=/profile openvpn-client.yml &gt; openvpn-client.ovpn
+</code></pre>
+
+<p>And then use the profile to connect&hellip;</p>
+
+<pre><code>openvpn --config openvpn-client.ovpn
+</code></pre>
+</article>
+</div>
+
+  <div class="column table-of-contents is-hidden-mobile">
+    <div class="content is-size-7">
+      <nav id="TableOfContents">
+<ul>
+<li><a href="#server-deployment">Server Deployment</a>
+<ul>
+<li><a href="#prerequisites">Prerequisites</a></li>
+<li><a href="#configuration">Configuration</a>
+<ul>
+<li><a href="#optional-features">Optional Features</a>
+<ul>
+<li><a href="#gateway-redirection">Gateway Redirection</a></li>
+<li><a href="#log-forwarding">Log Forwarding</a></li>
+<li><a href="#ssh-access">SSH Access</a></li>
+</ul></li>
+</ul></li>
+<li><a href="#infrastructure">Infrastructure</a>
+<ul>
+<li><a href="#amazon-web-services-aws">Amazon Web Services (<code>aws</code>)</a></li>
+<li><a href="#google-cloud-platform-google">Google Cloud Platform (<code>google</code>)</a></li>
+</ul></li>
+<li><a href="#deploy">Deploy</a></li>
+<li><a href="#client-setup">Client Setup</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+  </div>
+
+</div>
+
+        </div>
+      </div>
+    </section><footer class="footer">
+  <div class="content has-text-centered">
+    
+      <a href="https://github.com/dpb587/openvpn-bosh-release">OpenVPN BOSH Release</a> by <a href="https://dpb587.me/">Danny Berger</a>.
+    
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+  <head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>
+    v2.1.0 | openvpn-bosh-release</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
+<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-37464314-3', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    <style type="text/css">
+      body > .section {
+        padding-top: 1.75rem;
+      }
+      nav#TableOfContents > ul,
+      nav#TableOfContents > ul > li > ul {
+        list-style: none;
+        margin-left: 0;
+      }
+      nav#TableOfContents > ul > li > a {
+        display: none;
+      }
+    </style>
+  </head>
+  <body><nav class="navbar is-info" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="https://dpb587.github.io/openvpn-bosh-release">
+      
+        <img height="28" src="https://github.com/dpb587.png" style="border-radius:4px;margin-right:0.5rem">
+      
+      openvpn-bosh-release
+    </a>
+
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarExpanded">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarExpanded" class="navbar-menu">
+    <div class="navbar-start">
+      
+        <a class="navbar-item" href="/openvpn-bosh-release/docs/latest/">docs</a>
+      
+        <a class="navbar-item" href="/openvpn-bosh-release/releases/">releases</a>
+      
+        <a class="navbar-item" href="https://github.com/dpb587/openvpn-bosh-release">github</a>
+      
+    </div>
+
+    <div class="navbar-end"><div class="navbar-item" style="padding-left:0">
+          <a class="navbar-item" href="https://bosh.io/" title="BOSH" style="background-color:#fff;border-radius:4px;padding:.5rem">
+            <img height="28" src="/openvpn-bosh-release/img/cff-bosh.png" style="border-radius:4px">
+          </a>
+        </div></div>
+  </div>
+</nav>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+    if ($navbarBurgers.length > 0) {
+      $navbarBurgers.forEach( el => {
+        el.addEventListener('click', () => {
+          const target = el.dataset.target;
+          const $target = document.getElementById(target);
+
+          el.classList.toggle('is-active');
+          $target.classList.toggle('is-active');
+        });
+      });
+    }
+  });
+</script>
+
+<section class="section">
+      <div class="columns">
+        <div class="column">
+  
+  <aside class="menu">
+    <ul class="menu-list">
+<li><a href="/openvpn-bosh-release/docs/latest/">Overview</a></li>
+<li><a href="/openvpn-bosh-release/docs/latest/release-practices/">Release Practices</a></li>
+</ul>
+
+<p class="menu-label">Server Operations</p>
+
+<ul class="menu-list">
+<li><a href="/openvpn-bosh-release/docs/latest/server/deployment/">Deployment</a></li>
+<li><a href="/openvpn-bosh-release/docs/latest/server/advanced/">Advanced Settings</a></li>
+<li><a href="/openvpn-bosh-release/docs/latest/pki/">PKI Operations</a>
+
+<ul class="menu-list">
+<li><a href="/openvpn-bosh-release/docs/latest/pki/manual-ca-easyrsa/">Manual CA (easyrsa)</a></li>
+</ul></li>
+</ul>
+
+<p class="menu-label">Client Operations</p>
+
+<ul class="menu-list">
+<li><a href="/openvpn-bosh-release/docs/latest/client/deployment/">Deployment</a></li>
+<li><a href="/openvpn-bosh-release/docs/latest/client/end-user-software/">End-User Software</a></li>
+</ul>
+
+
+
+
+
+<p class="menu-label">Latest Release (v5.7.0)</p>
+<ul class="menu-list">
+  
+  <li><a href="/openvpn-bosh-release/releases/v5.7.0/">Overview</a></li>
+  
+    <li><a href="/openvpn-bosh-release/jobs/openvpn/v5.7.0/">openvpn</a></li>
+  
+    <li><a href="/openvpn-bosh-release/jobs/openvpn-client/v5.7.0/">openvpn-client</a></li>
+  
+    <li><a href="/openvpn-bosh-release/jobs/openvpn-clients/v5.7.0/">openvpn-clients</a></li>
+  
+</ul>
+
+
+  </aside>
+
+</div>
+        <div class="column is-four-fifths">
+          
+  <div class="columns">
+    <div class="column is-four-fifths">
+  
+  
+
+  
+    
+      
+      
+    
+  
+
+  
+    
+    
+    
+      
+    
+
+    <div class="is-size-5 is-pulled-right">
+      <a href="https://github.com/dpb587/openvpn-bosh-release/blob/master/releases/openvpn/openvpn-2.1.0.md" rel="noopener" target="_blank" title="Contribute changes to this page" style="opacity:0.7">
+        <i class="fas fa-pencil-alt"></i>
+      </a>
+    </div>
+  
+
+<article class="content">
+        
+  <article class="message is-warning">
+    <div class="message-body">
+      This document is describing an outdated version (v2.1.0). Please consider switching to the latest version (<a href="/openvpn-bosh-release/releases/v5.7.0/">v5.7.0</a>).
+    </div>
+  </article>
+
+
+
+        <h1 id="overview">openvpn/2.1.0</h1>
+
+        
+          <p>Released <time datetime="2016-05-03T07:38:26Z" title="2016-05-03T07:38:26Z">May 3, 2016</time></p>
+        
+
+        
+          <h2 id="notes">Release Notes</h2><p>Upgrades:</p>
+
+<ul>
+<li>openssl now 1.0.2g (was 1.0.2e)</li>
+<li>openvpn now 2.3.10 (was 2.3.8)</li>
+</ul>
+
+
+        <h2 id="usage">Usage</h2>
+
+        
+
+
+  
+  
+
+
+
+
+
+
+
+<p>Upload the release tarball from the command line:</p>
+
+<pre><code>bosh upload-release --name="openvpn" --version="5.7.0" \
+  "<a href="https://s3-external-1.amazonaws.com/dpb587-bosh-release-openvpn-us-east-1/artifacts/release/2a077654f266760fd4ca844908664fedeca42ae8">https://s3-external-1.amazonaws.com/dpb587-bosh-release-openvpn-us-east-1/artifacts/release/2a077654f266760fd4ca844908664fedeca42ae8</a>" \
+  --sha1="sha256:ed5c02e47cb614129a27d741cf67691451c302647668bea4cfc62148ea74b6c8"</code></pre>
+
+<p>Or reference the release from a manifest:</p>
+
+<pre><code>releases:
+- name: "openvpn"
+  version: "5.7.0"
+  url: "<a href="https://s3-external-1.amazonaws.com/dpb587-bosh-release-openvpn-us-east-1/artifacts/release/2a077654f266760fd4ca844908664fedeca42ae8">https://s3-external-1.amazonaws.com/dpb587-bosh-release-openvpn-us-east-1/artifacts/release/2a077654f266760fd4ca844908664fedeca42ae8</a>"
+  sha1: "sha256:ed5c02e47cb614129a27d741cf67691451c302647668bea4cfc62148ea74b6c8"</code></pre>
+
+
+
+        <h2 id="jobs">Jobs</h2>
+
+        
+          <h3 id="openvpn"><a href="https://dpb587.github.io/openvpn-bosh-release/jobs/openvpn/v2.1.0/">openvpn</a></h3>
+          
+        
+
+        <h2 id="packages">Packages</h2>
+
+        
+          <h3 id="openvpn"><a href="https://dpb587.github.io/openvpn-bosh-release/packages/openvpn/v2.1.0/">openvpn</a></h3>
+          
+        
+
+        <h2 id="spec">Source</h2>
+
+        
+        <p>
+          Based on <code>releases/openvpn/openvpn-2.1.0.yml</code>
+          (<a href="https://github.com/dpb587/openvpn-bosh-release/blob/master/releases/openvpn/openvpn-2.1.0.yml">source</a>).
+        </p>
+      </article>
+    </div>
+    
+      <div class="column table-of-contents is-hidden-mobile">
+        <div class="content is-size-7">
+          <nav id="TableOfContents">
+            <ul>
+              <li>
+                <a href="#overview">openvpn/2.1.0</a>
+                <ul>
+                  
+                    <li><a href="#notes">Release Notes</a></li>
+                  
+                  
+                  <li><a href="#usage">Usage</a></li>
+                  <li>
+                    <a href="#jobs">Jobs</a>
+                    <ul>
+                      
+                        <li><a href="#openvpn">openvpn</a></li>
+                      
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="#packages">Packages</a>
+                    <ul>
+                      
+                        <li><a href="#openvpn">openvpn</a></li>
+                      
+                    </ul>
+                  </li>
+                  <li><a href="#spec">Source</a></li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    
+  </div>
+
+        </div>
+      </div>
+    </section><footer class="footer">
+  <div class="content has-text-centered">
+    
+      <a href="https://github.com/dpb587/openvpn-bosh-release">OpenVPN BOSH Release</a> by <a href="https://dpb587.me/">Danny Berger</a>.
+    
+  </div>
+</footer>
+</body>
+</html>

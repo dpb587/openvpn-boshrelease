@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+  <head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>openvpn-client | openvpn-bosh-release</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
+<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-37464314-3', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    <style type="text/css">
+      body > .section {
+        padding-top: 1.75rem;
+      }
+      nav#TableOfContents > ul,
+      nav#TableOfContents > ul > li > ul {
+        list-style: none;
+        margin-left: 0;
+      }
+      nav#TableOfContents > ul > li > a {
+        display: none;
+      }
+    </style>
+  </head>
+  <body><nav class="navbar is-info" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="https://dpb587.github.io/openvpn-bosh-release">
+      
+        <img height="28" src="https://github.com/dpb587.png" style="border-radius:4px;margin-right:0.5rem">
+      
+      openvpn-bosh-release
+    </a>
+
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarExpanded">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarExpanded" class="navbar-menu">
+    <div class="navbar-start">
+      
+        <a class="navbar-item" href="/openvpn-bosh-release/docs/latest/">docs</a>
+      
+        <a class="navbar-item" href="/openvpn-bosh-release/releases/">releases</a>
+      
+        <a class="navbar-item" href="https://github.com/dpb587/openvpn-bosh-release">github</a>
+      
+    </div>
+
+    <div class="navbar-end"><div class="navbar-item" style="padding-left:0">
+          <a class="navbar-item" href="https://bosh.io/" title="BOSH" style="background-color:#fff;border-radius:4px;padding:.5rem">
+            <img height="28" src="/openvpn-bosh-release/img/cff-bosh.png" style="border-radius:4px">
+          </a>
+        </div></div>
+  </div>
+</nav>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+    if ($navbarBurgers.length > 0) {
+      $navbarBurgers.forEach( el => {
+        el.addEventListener('click', () => {
+          const target = el.dataset.target;
+          const $target = document.getElementById(target);
+
+          el.classList.toggle('is-active');
+          $target.classList.toggle('is-active');
+        });
+      });
+    }
+  });
+</script>
+
+<section class="section">
+      <div class="columns">
+        <div class="column">
+  
+  <aside class="menu">
+    <ul class="menu-list">
+<li><a href="/openvpn-bosh-release/docs/latest/">Overview</a></li>
+<li><a href="/openvpn-bosh-release/docs/latest/release-practices/">Release Practices</a></li>
+</ul>
+
+<p class="menu-label">Server Operations</p>
+
+<ul class="menu-list">
+<li><a href="/openvpn-bosh-release/docs/latest/server/deployment/">Deployment</a></li>
+<li><a href="/openvpn-bosh-release/docs/latest/server/advanced/">Advanced Settings</a></li>
+<li><a href="/openvpn-bosh-release/docs/latest/pki/">PKI Operations</a>
+
+<ul class="menu-list">
+<li><a href="/openvpn-bosh-release/docs/latest/pki/manual-ca-easyrsa/">Manual CA (easyrsa)</a></li>
+</ul></li>
+</ul>
+
+<p class="menu-label">Client Operations</p>
+
+<ul class="menu-list">
+<li><a href="/openvpn-bosh-release/docs/latest/client/deployment/">Deployment</a></li>
+<li><a href="/openvpn-bosh-release/docs/latest/client/end-user-software/">End-User Software</a></li>
+</ul>
+
+
+
+
+
+<p class="menu-label">Latest Release (v5.7.0)</p>
+<ul class="menu-list">
+  
+  <li><a href="/openvpn-bosh-release/releases/v5.7.0/">Overview</a></li>
+  
+    <li><a href="/openvpn-bosh-release/jobs/openvpn/v5.7.0/">openvpn</a></li>
+  
+    <li><a href="/openvpn-bosh-release/jobs/openvpn-client/v5.7.0/">openvpn-client</a></li>
+  
+    <li><a href="/openvpn-bosh-release/jobs/openvpn-clients/v5.7.0/">openvpn-clients</a></li>
+  
+</ul>
+
+
+  </aside>
+
+</div>
+        <div class="column is-four-fifths">
+          
+  <div class="columns">
+    <div class="column is-four-fifths">
+  
+  
+
+  
+    
+  
+
+  
+
+<article class="content">
+        
+  <article class="message is-warning">
+    <div class="message-body">
+      This document is describing an outdated version (v4.2.0). Please consider switching to the latest version (<a href="/openvpn-bosh-release/releases/v5.7.0/">v5.7.0</a>).
+    </div>
+  </article>
+
+
+
+        <h1 id="overview"><code>openvpn-client</code> job</h1>
+
+        
+          <p>
+            The <code>openvpn-client</code> job runs an OpenVPN client, connecting to a remote server.
+          </p>
+        
+
+        <h2 id="usage">Usage</h2>
+
+        <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">releases:
+- name: <span style="color:#e6db74">&#34;openvpn&#34;</span>
+  version: <span style="color:#e6db74">&#34;4.2.0&#34;</span>
+instance_groups:
+- name: <span style="color:#e6db74">&#34;openvpn-client&#34;</span>
+  jobs:
+  - name: <span style="color:#e6db74">&#34;openvpn-client&#34;</span>
+    release: <span style="color:#e6db74">&#34;openvpn&#34;</span>
+    properties: {}</code></pre></div>
+
+        
+          
+            <h2 id="properties">Properties</h2>
+
+            <p>The following properties can be configured for the job.</p>
+
+            
+              <h3 id="property-device">device</h3>
+
+              
+                <div class="content">Virtual network device to use</div>
+              
+
+              
+
+              
+                <div class="columns is-vcentered">
+                  <div class="column is-one-fifth has-text-right has-text-left-mobile">Default</div>
+                  <div class="column"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">tun1
+</code></pre></div></div>
+                </div>
+              
+
+              
+            
+              <h3 id="property-extra-config">extra_config</h3>
+
+              
+                <div class="content">Custom OpenVPN configuration statements (see <a href="https://community.openvpn.net/openvpn/wiki/Openvpn23ManPage">manual</a>)</div>
+              
+
+              
+
+              
+                <div class="columns is-vcentered">
+                  <div class="column is-one-fifth has-text-right has-text-left-mobile">Default</div>
+                  <div class="column"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">null</span>
+</code></pre></div></div>
+                </div>
+              
+
+              
+            
+              <h3 id="property-extra-configs">extra_configs</h3>
+
+              
+                <div class="content">A list of custom OpenVPN configuration statements (see <a href="https://community.openvpn.net/openvpn/wiki/Openvpn23ManPage">manual</a>)</div>
+              
+
+              
+
+              
+                <div class="columns is-vcentered">
+                  <div class="column is-one-fifth has-text-right has-text-left-mobile">Default</div>
+                  <div class="column"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">[]
+</code></pre></div></div>
+                </div>
+              
+
+              
+            
+              <h3 id="property-tls-client">tls_client</h3>
+
+              
+                <div class="content">Certificate and Private Key for the server</div>
+              
+
+              
+
+              
+
+              
+                <div class="columns is-vcentered">
+                  <div class="column is-one-fifth has-text-right has-text-left-mobile">Example</div>
+                  <div class="column"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">certificate: <span style="color:#e6db74">|
+</span><span style="color:#e6db74">  -----BEGIN CERTIFICATE-----
+</span><span style="color:#e6db74">  ...
+</span><span style="color:#e6db74">  -----END CERTIFICATE-----</span>
+private_key: <span style="color:#e6db74">|
+</span><span style="color:#e6db74">  -----BEGIN RSA PRIVATE KEY-----
+</span><span style="color:#e6db74">  ...
+</span><span style="color:#e6db74">  -----END RSA PRIVATE KEY-----</span>
+</code></pre></div></div>
+                </div>
+              
+            
+          
+
+
+          
+            <h2 id="consumes">Consumed Links</h2>
+
+            <p>The job consumes the following links.</p>
+
+            
+              <h3 id="consumes-server">server (<code>openvpn</code>)</h3>
+
+              
+            
+          
+
+          
+
+          <h2 id="runtime">Runtime</h2>
+
+          
+            <h3 id="templates">Templates</h3>
+
+            <p>The following templates are rendered and installed in <code>/var/vcap/jobs/openvpn-client</code>.</p>
+
+            <ul>
+              
+                <li><code>bin/control</code> (<a href="https://github.com/dpb587/openvpn-bosh-release/blob/v4.2.0/jobs/openvpn-client/templates/bin/control">source</a>)</li>
+              
+                <li><code>etc/profile.ovpn</code> (<a href="https://github.com/dpb587/openvpn-bosh-release/blob/v4.2.0/jobs/openvpn-client/templates/etc/profile.ovpn.erb">source</a>)</li>
+              
+            </ul>
+          
+
+          
+            <h3 id="packages">Packages</h3>
+
+            <p>The job depends on the following packages installed in <code>/var/vcap/packages</code>.</p>
+
+            <ul>
+              
+                <li><a href="/openvpn-bosh-release/packages/openvpn/v4.2.0/"><code>openvpn</code></a></li>
+              
+            </ul>
+          
+
+          <h2 id="spec">Source</h2>
+
+          <p>
+            Based on <code>jobs/openvpn-client/spec</code>
+            (<a href="https://github.com/dpb587/openvpn-bosh-release/blob/v4.2.0/jobs/openvpn-client/spec">source</a>,
+              <a href="https://dpb587.github.io/openvpn-bosh-release/jobs/openvpn-client/v4.2.0/index.yml">YAML</a>,
+              <a href="https://dpb587.github.io/openvpn-bosh-release/jobs/openvpn-client/v4.2.0/index.json">JSON</a>).
+          </p>
+        
+      </article>
+    </div>
+    
+      <div class="column table-of-contents is-hidden-mobile">
+        <div class="content is-size-7">
+          <nav id="TableOfContents">
+            <ul>
+              <li>
+                <a href="#overview"><code>openvpn-client</code> job</a>
+                <ul>
+                  <li><a href="#usage">Usage</a></li>
+                  
+                    
+                      <li>
+                        <a href="#properties">Properties</a>
+                        <ul>
+                          
+                            <li><a href="#property-device">device</a></li>
+                          
+                            <li><a href="#property-extra-config">extra_config</a></li>
+                          
+                            <li><a href="#property-extra-configs">extra_configs</a></li>
+                          
+                            <li><a href="#property-tls-client">tls_client</a></li>
+                          
+                        </ul>
+                      </li>
+                    
+                    
+                      <li>
+                        <a href="#consumes">Consumed Links</a>
+                        <ul>
+                          
+                            <li><a href="#consumes-server">server (<code>openvpn</code>)</a></li>
+                          
+                        </ul>
+                      </li>
+                    
+                    
+                    <li>
+                      <a href="#runtime">Runtime</a>
+                      <ul>
+                        
+                          <li><a href="#templates">Templates</a></li>
+                        
+                        
+                          <li><a href="#packages">Packages</a></li>
+                        
+                      </ul>
+                    </li>
+                    <li><a href="#spec">Source</a></li>
+                  
+                </ul>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    
+  </div>
+
+        </div>
+      </div>
+    </section><footer class="footer">
+  <div class="content has-text-centered">
+    
+      <a href="https://github.com/dpb587/openvpn-bosh-release">OpenVPN BOSH Release</a> by <a href="https://dpb587.me/">Danny Berger</a>.
+    
+  </div>
+</footer>
+</body>
+</html>

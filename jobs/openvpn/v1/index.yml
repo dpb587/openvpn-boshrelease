@@ -1,0 +1,95 @@
+---
+name: "openvpn"
+packages:
+  - "openvpn"
+templates:
+  bin/apply-iptables.erb: "bin/apply-iptables"
+  bin/write-ccd.erb: "bin/write-ccd"
+  bin/write-clients.erb: "bin/write-clients"
+  bin/control: "bin/control"
+  bin/control-client: "bin/control-client"
+  etc/ca.crt.erb: "etc/ca.crt"
+  etc/crl.pem.erb: "etc/crl.pem"
+  etc/dh.pem.erb: "etc/dh.pem"
+  etc/openvpn.conf.erb: "etc/openvpn.conf"
+  etc/server.crt.erb: "etc/server.crt"
+  etc/server.key.erb: "etc/server.key"
+properties:
+  openvpn.port:
+    default: 1194
+    description: "Bind Port for the server"
+    type: "integer"
+  openvpn.extra_config:
+    default: ~
+    description: "Custom OpenVPN configuration statements"
+    type: "text"
+    help: |
+          For more details, see the [manual](https://community.openvpn.net/openvpn/wiki/Openvpn23ManPage) with all the available options.
+  openvpn.local:
+    default: "0.0.0.0"
+    description: "Bind IP for the server"
+    regex: "\\d{1,3}.\\d{1,3}.\\d{1,3}.\\d{1,3}"
+    type: "string"
+  openvpn.server:
+    description: "VPN IP and netmask"
+    regex: "\\d{1,3}.\\d{1,3}.\\d{1,3}.\\d{1,3} \\d{1,3}.\\d{1,3}.\\d{1,3}.\\d{1,3}"
+    type: "string"
+    help: |
+          This is the basis of the IP pool which the server will allocate to clients.
+  openvpn.routes:
+    default: []
+    description: "Routes for the local routing table"
+    type: "string[]"
+    help: |
+          These will be added to the local kernel's routing table and should be in the format of "192.0.2.0 255.255.255.0".
+  openvpn.push_routes:
+    default: []
+    description: "Routes to push to connecting clients"
+    type: "string[]"
+    help: |
+          These should be in a format similar to "192.0.2.0 255.255.255.0".
+  openvpn.ca_crt:
+    description: "CA Certificate"
+    help: |
+          This should include `-----BEGIN CERTIFICATE-----` through `-----END CERTIFICATE-----`.
+    type: "text"
+  openvpn.server_crt:
+    description: "Server Certificate"
+    type: "text"
+    help: |
+          This should include `-----BEGIN CERTIFICATE-----` through `-----END CERTIFICATE-----`.
+  openvpn.server_key:
+    description: "Server Key"
+    type: "text"
+    help: |
+          This should include `-----BEGIN RSA PRIVATE KEY-----` through `-----END RSA PRIVATE KEY-----`.
+  openvpn.dh_pem:
+    description: "Diffie-Hellmann Key"
+    type: "text"
+    help: |
+          This should include `-----BEGIN DH PARAMETERS-----` through `-----END DH PARAMETERS-----`.
+  openvpn.crl_pem:
+    description: "Certificate Revocation List"
+    type: "text"
+    help: |
+          This should inclulde `-----BEGIN X509 CRL-----` through `-----END X509 CRL-----`.
+  openvpn.ccd:
+    description: "A list of Client Configuration Directives"
+    help: |
+          This value is an array, with each client being an array whose first value is the client's common name and second value is the OpenVPN directives.
+    default: []
+    type: "array[]"
+  openvpn.iptables:
+    description: "IPTable rules to manage"
+    default: []
+    type: "string[]"
+    example:
+      - "POSTROUTING -t nat -s 192.0.2.0/24 -d 10.10.1.0/24 -j MASQUERADE -m comment --comment 'vpn -> private lan'"
+      - "POSTROUTING -t nat -s 192.0.2.0/24 -d 10.10.2.100/32 -j MASQUERADE -m comment --comment 'vpn -> internal backup server'"
+  openvpn.client_config:
+    description: "A list of Client Configuration Connections"
+    help: |
+          This value is an array, with each client connection being an item.
+    default: []
+    type: "array[]"
+

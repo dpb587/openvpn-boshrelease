@@ -1,0 +1,37 @@
+---
+name: "openvpn-client"
+description: |
+  The `openvpn-client` job runs an OpenVPN client, connecting to a remote server.
+packages:
+- "openvpn"
+templates:
+  bin/control: "bin/control"
+  etc/profile.ovpn.erb: "etc/profile.ovpn"
+consumes:
+- name: server
+  type: openvpn
+properties:
+  tls_client:
+    description: "Certificate and Private Key for the server"
+    type: "certificate"
+    example:
+      certificate: |
+        -----BEGIN CERTIFICATE-----
+        ...
+        -----END CERTIFICATE-----
+      private_key: |
+        -----BEGIN RSA PRIVATE KEY-----
+        ...
+        -----END RSA PRIVATE KEY-----
+  device:
+    description: "Virtual network device to use"
+    default: "tun1"
+  extra_config:
+    default: ~
+    description: "Custom OpenVPN configuration statements (see [manual](https://community.openvpn.net/openvpn/wiki/Openvpn23ManPage))"
+    type: "text"
+  extra_configs:
+    default: []
+    description: "A list of custom OpenVPN configuration statements (see [manual](https://community.openvpn.net/openvpn/wiki/Openvpn23ManPage))"
+    type: "string[]"
+

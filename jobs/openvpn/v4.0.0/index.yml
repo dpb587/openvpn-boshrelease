@@ -1,0 +1,119 @@
+---
+name: "openvpn"
+description: |
+  The `openvpn` job provides an OpenVPN server for clients to connect to.
+packages:
+- "openvpn"
+templates:
+  bin/write-ccd.erb: "bin/write-ccd"
+  bin/control: "bin/control"
+  etc/openvpn.conf.erb: "etc/openvpn.conf"
+provides:
+- name: openvpn
+  type: openvpn
+  properties:
+  - protocol
+  - port
+  - cipher
+  - keysize
+  - tls_version_min
+  - tls_cipher
+  - tls_crypt
+  - tls_server # until tls_server.ca...
+properties:
+  protocol:
+    default: tcp
+    description: "Protocol for the server"
+    enum:
+    - udp
+    - tcp
+  port:
+    default: 1194
+    description: "Bind Port for the server"
+    type: "integer"
+  extra_config:
+    default: ~
+    description: "Custom OpenVPN configuration statements (see [manual](https://community.openvpn.net/openvpn/wiki/Openvpn23ManPage))"
+    type: "text"
+  extra_configs:
+    default: []
+    description: "A list of custom OpenVPN configuration statements (see [manual](https://community.openvpn.net/openvpn/wiki/Openvpn23ManPage))"
+    type: "string[]"
+  local:
+    default: "0.0.0.0"
+    description: "Bind IP for the server"
+    regex: "\\d{1,3}.\\d{1,3}.\\d{1,3}.\\d{1,3}"
+  server:
+    description: "VPN IP and netmask (basis of the IP pool which the server will allocate to clients)"
+    regex: "\\d{1,3}.\\d{1,3}.\\d{1,3}.\\d{1,3} \\d{1,3}.\\d{1,3}.\\d{1,3}.\\d{1,3}"
+  device:
+    description: "Virtual network device to use"
+    default: "tun0"
+  routes:
+    default: []
+    description: "A list of routes for the local routing table (in the format of \"192.0.2.0 255.255.255.0\")"
+    type: "string[]"
+  push_routes:
+    default: []
+    description: "A list of routes to push to connecting clients (in the format of \"192.0.2.0 255.255.255.0\")"
+    type: "string[]"
+  push_dns:
+    default: []
+    description: "DNS servers to push to connecting clients to enable DNS resolution over the VPN tunnel"
+    type: "string[]"
+  push_dns_search_domains:
+    default: []
+    description: "List of search domains to push to clients"
+    type: "string[]"
+  compress:
+    description: "Default compression (or empty to disable)"
+    default: ''
+    enum:
+    - lzo
+    - lz4
+  push_compress:
+    description: "Push default compression setting to clients"
+    default: true
+    type: "boolean"
+  cipher:
+    description: "Cipher for encrypting packets"
+    default: "AES-256-CBC"
+  keysize:
+    description: "Size of cipher key in bits"
+    default: 256
+    type: "integer"
+  tls_version_min:
+    description: "The minimum TLS version accepted from peers"
+    default: "1.2"
+  tls_cipher:
+    description: "A colon-separated list of allowable TLS ciphers"
+    example: "DEFAULT:!EXP:!LOW:!MEDIUM"
+  tls_crypt:
+    description: "Encrypt control channel packets with private key"
+  tls_server:
+    description: "Certificate and Private Key for the server"
+    type: "certificate"
+    example:
+      ca: |
+        -----BEGIN CERTIFICATE-----
+        ...
+        -----END CERTIFICATE-----
+      certificate: |
+        -----BEGIN CERTIFICATE-----
+        ...
+        -----END CERTIFICATE-----
+      private_key: |
+        -----BEGIN RSA PRIVATE KEY-----
+        ...
+        -----END RSA PRIVATE KEY-----
+  tls_crl:
+    description: "Certificate Revocation List (`X509 CRL`, including the begin/end markers)"
+    type: "text"
+  dh_pem:
+    description: "Diffie-Hellmann Key (`DH PARAMETERS`, including the begin/end markers)"
+    type: "text"
+  ccd:
+    description: "A list of Client Configuration Directives. This value is an array, with each client being an array whose first value is the client's common name and second value is the OpenVPN directives."
+    default: []
+    type: "array[]"
+

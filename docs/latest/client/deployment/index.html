@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+  <head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deployment | openvpn-bosh-release</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
+<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-37464314-3', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    <style type="text/css">
+      body > .section {
+        padding-top: 1.75rem;
+      }
+      nav#TableOfContents > ul,
+      nav#TableOfContents > ul > li > ul {
+        list-style: none;
+        margin-left: 0;
+      }
+      nav#TableOfContents > ul > li > a {
+        display: none;
+      }
+    </style>
+  </head>
+  <body><nav class="navbar is-info" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="https://dpb587.github.io/openvpn-bosh-release">
+      
+        <img height="28" src="https://github.com/dpb587.png" style="border-radius:4px;margin-right:0.5rem">
+      
+      openvpn-bosh-release
+    </a>
+
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarExpanded">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarExpanded" class="navbar-menu">
+    <div class="navbar-start">
+      
+        <a class="navbar-item" href="/openvpn-bosh-release/docs/latest/">docs</a>
+      
+        <a class="navbar-item" href="/openvpn-bosh-release/releases/">releases</a>
+      
+        <a class="navbar-item" href="https://github.com/dpb587/openvpn-bosh-release">github</a>
+      
+    </div>
+
+    <div class="navbar-end"><div class="navbar-item" style="padding-left:0">
+          <a class="navbar-item" href="https://bosh.io/" title="BOSH" style="background-color:#fff;border-radius:4px;padding:.5rem">
+            <img height="28" src="/openvpn-bosh-release/img/cff-bosh.png" style="border-radius:4px">
+          </a>
+        </div></div>
+  </div>
+</nav>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+    if ($navbarBurgers.length > 0) {
+      $navbarBurgers.forEach( el => {
+        el.addEventListener('click', () => {
+          const target = el.dataset.target;
+          const $target = document.getElementById(target);
+
+          el.classList.toggle('is-active');
+          $target.classList.toggle('is-active');
+        });
+      });
+    }
+  });
+</script>
+
+<section class="section">
+      <div class="columns">
+        <div class="column">
+  
+  <aside class="menu">
+    <ul class="menu-list">
+<li><a href="/openvpn-bosh-release/docs/latest/">Overview</a></li>
+<li><a href="/openvpn-bosh-release/docs/latest/release-practices/">Release Practices</a></li>
+</ul>
+
+<p class="menu-label">Server Operations</p>
+
+<ul class="menu-list">
+<li><a href="/openvpn-bosh-release/docs/latest/server/deployment/">Deployment</a></li>
+<li><a href="/openvpn-bosh-release/docs/latest/server/advanced/">Advanced Settings</a></li>
+<li><a href="/openvpn-bosh-release/docs/latest/pki/">PKI Operations</a>
+
+<ul class="menu-list">
+<li><a href="/openvpn-bosh-release/docs/latest/pki/manual-ca-easyrsa/">Manual CA (easyrsa)</a></li>
+</ul></li>
+</ul>
+
+<p class="menu-label">Client Operations</p>
+
+<ul class="menu-list">
+<li><a class="is-active" href="/openvpn-bosh-release/docs/latest/client/deployment/">Deployment</a></li>
+<li><a href="/openvpn-bosh-release/docs/latest/client/end-user-software/">End-User Software</a></li>
+</ul>
+
+
+
+
+
+<p class="menu-label">Latest Release (v5.7.0)</p>
+<ul class="menu-list">
+  
+  <li><a href="/openvpn-bosh-release/releases/v5.7.0/">Overview</a></li>
+  
+    <li><a href="/openvpn-bosh-release/jobs/openvpn/v5.7.0/">openvpn</a></li>
+  
+    <li><a href="/openvpn-bosh-release/jobs/openvpn-client/v5.7.0/">openvpn-client</a></li>
+  
+    <li><a href="/openvpn-bosh-release/jobs/openvpn-clients/v5.7.0/">openvpn-clients</a></li>
+  
+</ul>
+
+
+  </aside>
+
+</div>
+        <div class="column is-four-fifths">
+          
+  <div class="columns">
+    <div class="column is-four-fifths">
+  
+  
+
+  
+    
+      
+      
+    
+  
+
+  
+    
+    
+    
+      
+    
+
+    <div class="is-size-5 is-pulled-right">
+      <a href="https://github.com/dpb587/openvpn-bosh-release/blob/master/docs/client/deployment.md" rel="noopener" target="_blank" title="Contribute changes to this page" style="opacity:0.7">
+        <i class="fas fa-pencil-alt"></i>
+      </a>
+    </div>
+  
+
+<article class="content">
+
+<h1 id="client-deployment">Client Deployment</h1>
+
+<p>The <code>openvpn-client</code> job requires a <a href="https://bosh.io/docs/links.html">link</a> named <code>openvpn</code> which describes the connection to the server. The <code>openvpn</code> job implicitly provides the correct link. If you have advanced client configuration or a raw OpenVPN profile, use the <code>openvpn-clients</code> job.</p>
+
+<h2 id="cross-deployment-links">Cross-Deployment Links</h2>
+
+<p>Here&rsquo;s an example of consuming a <a href="https://bosh.io/docs/links.html#cross-deployment">cross-deployment</a> link&hellip;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">instance_groups:
+- name: vpn
+  jobs:
+  - name: openvpn-client
+    release: openvpn
+    consumes:
+      server:
+        from: openvpn
+        deployment: aws-infra-vpn</code></pre></div>
+<h2 id="manual-link">Manual Link</h2>
+
+<p>For scenarios where the OpenVPN server is not provided by BOSH, you can manually configure the link&hellip;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">instance_groups:
+- name: vpn
+  jobs:
+  - name: openvpn-client
+    release: openvpn
+    consumes:
+      server:
+        instances:
+        - address: infra-vpn.aws-use1.prod.acme.local
+        properties:
+          protocol: tcp
+          port: <span style="color:#ae81ff">1194</span>
+          cipher: AES-<span style="color:#ae81ff">256</span>-CBC
+          keysize: <span style="color:#ae81ff">256</span>
+          tls_server:
+            ca: <span style="color:#e6db74">|
+</span><span style="color:#e6db74">              -----BEGIN CERTIFICATE-----
+</span><span style="color:#e6db74">              ...
+</span><span style="color:#e6db74">              -----END CERTIFICATE-----</span>
+    properties:
+      tls_client:
+        certificate: <span style="color:#e6db74">|
+</span><span style="color:#e6db74">          -----BEGIN CERTIFICATE-----
+</span><span style="color:#e6db74">          ...
+</span><span style="color:#e6db74">          -----END CERTIFICATE-----</span>
+        private_key: <span style="color:#e6db74">|
+</span><span style="color:#e6db74">          -----BEGIN RSA PRIVATE KEY-----
+</span><span style="color:#e6db74">          ...
+</span><span style="color:#e6db74">          -----END RSA PRIVATE KEY-----</span></code></pre></div>
+<h2 id="multiple-clients">Multiple Clients</h2>
+
+<p>For scenarios where a VM needs to connect to multiple OpenVPN servers (or you want to use raw configuration)&hellip;</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">instance_groups:
+- name: vpn
+  jobs:
+  - name: openvpn-clients
+    release: openvpn
+    properties:
+      clients:
+      - name: aws-use1
+        config: <span style="color:#e6db74">|
+</span><span style="color:#e6db74">          remote vpn.aws-us-east-1.staging-snowstorm.internal.example.com 1194 tcp
+</span><span style="color:#e6db74">          ...snip...
+</span><span style="color:#e6db74">          &lt;cert&gt;
+</span><span style="color:#e6db74">          ...
+</span><span style="color:#e6db74">          &lt;/cert&gt;
+</span><span style="color:#e6db74">          &lt;key&gt;
+</span><span style="color:#e6db74">          ...
+</span><span style="color:#e6db74">          &lt;/key&gt;</span>
+      - name: aws-usw2
+        config: <span style="color:#e6db74">|
+</span><span style="color:#e6db74">          remote vpn.aws-us-west-1.staging-snowstorm.internal.example.com 1194 tcp
+</span><span style="color:#e6db74">          ...snip...
+</span><span style="color:#e6db74">          &lt;cert&gt;
+</span><span style="color:#e6db74">          ...
+</span><span style="color:#e6db74">          &lt;/cert&gt;
+</span><span style="color:#e6db74">          &lt;key&gt;
+</span><span style="color:#e6db74">          ...
+</span><span style="color:#e6db74">          &lt;/key&gt;</span></code></pre></div></article>
+</div>
+
+  <div class="column table-of-contents is-hidden-mobile">
+    <div class="content is-size-7">
+      <nav id="TableOfContents">
+<ul>
+<li><a href="#client-deployment">Client Deployment</a>
+<ul>
+<li><a href="#cross-deployment-links">Cross-Deployment Links</a></li>
+<li><a href="#manual-link">Manual Link</a></li>
+<li><a href="#multiple-clients">Multiple Clients</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+  </div>
+
+</div>
+
+        </div>
+      </div>
+    </section><footer class="footer">
+  <div class="content has-text-centered">
+    
+      <a href="https://github.com/dpb587/openvpn-bosh-release">OpenVPN BOSH Release</a> by <a href="https://dpb587.me/">Danny Berger</a>.
+    
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html>
+  <head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>openvpn | openvpn-bosh-release</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
+<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-37464314-3', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    <style type="text/css">
+      body > .section {
+        padding-top: 1.75rem;
+      }
+      nav#TableOfContents > ul,
+      nav#TableOfContents > ul > li > ul {
+        list-style: none;
+        margin-left: 0;
+      }
+      nav#TableOfContents > ul > li > a {
+        display: none;
+      }
+    </style>
+  </head>
+  <body><nav class="navbar is-info" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="https://dpb587.github.io/openvpn-bosh-release">
+      
+        <img height="28" src="https://github.com/dpb587.png" style="border-radius:4px;margin-right:0.5rem">
+      
+      openvpn-bosh-release
+    </a>
+
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarExpanded">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarExpanded" class="navbar-menu">
+    <div class="navbar-start">
+      
+        <a class="navbar-item" href="/openvpn-bosh-release/docs/latest/">docs</a>
+      
+        <a class="navbar-item" href="/openvpn-bosh-release/releases/">releases</a>
+      
+        <a class="navbar-item" href="https://github.com/dpb587/openvpn-bosh-release">github</a>
+      
+    </div>
+
+    <div class="navbar-end"><div class="navbar-item" style="padding-left:0">
+          <a class="navbar-item" href="https://bosh.io/" title="BOSH" style="background-color:#fff;border-radius:4px;padding:.5rem">
+            <img height="28" src="/openvpn-bosh-release/img/cff-bosh.png" style="border-radius:4px">
+          </a>
+        </div></div>
+  </div>
+</nav>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+    if ($navbarBurgers.length > 0) {
+      $navbarBurgers.forEach( el => {
+        el.addEventListener('click', () => {
+          const target = el.dataset.target;
+          const $target = document.getElementById(target);
+
+          el.classList.toggle('is-active');
+          $target.classList.toggle('is-active');
+        });
+      });
+    }
+  });
+</script>
+
+<section class="section">
+      <div class="columns">
+        <div class="column">
+  
+  <aside class="menu">
+    <ul class="menu-list">
+<li><a href="/openvpn-bosh-release/docs/latest/">Overview</a></li>
+<li><a href="/openvpn-bosh-release/docs/latest/release-practices/">Release Practices</a></li>
+</ul>
+
+<p class="menu-label">Server Operations</p>
+
+<ul class="menu-list">
+<li><a href="/openvpn-bosh-release/docs/latest/server/deployment/">Deployment</a></li>
+<li><a href="/openvpn-bosh-release/docs/latest/server/advanced/">Advanced Settings</a></li>
+<li><a href="/openvpn-bosh-release/docs/latest/pki/">PKI Operations</a>
+
+<ul class="menu-list">
+<li><a href="/openvpn-bosh-release/docs/latest/pki/manual-ca-easyrsa/">Manual CA (easyrsa)</a></li>
+</ul></li>
+</ul>
+
+<p class="menu-label">Client Operations</p>
+
+<ul class="menu-list">
+<li><a href="/openvpn-bosh-release/docs/latest/client/deployment/">Deployment</a></li>
+<li><a href="/openvpn-bosh-release/docs/latest/client/end-user-software/">End-User Software</a></li>
+</ul>
+
+
+
+
+
+<p class="menu-label">Latest Release (v5.7.0)</p>
+<ul class="menu-list">
+  
+  <li><a href="/openvpn-bosh-release/releases/v5.7.0/">Overview</a></li>
+  
+    <li><a href="/openvpn-bosh-release/jobs/openvpn/v5.7.0/">openvpn</a></li>
+  
+    <li><a href="/openvpn-bosh-release/jobs/openvpn-client/v5.7.0/">openvpn-client</a></li>
+  
+    <li><a href="/openvpn-bosh-release/jobs/openvpn-clients/v5.7.0/">openvpn-clients</a></li>
+  
+</ul>
+
+
+  </aside>
+
+</div>
+        <div class="column is-four-fifths">
+          
+  <div class="columns">
+    <div class="column is-four-fifths">
+  
+  
+
+  
+    
+  
+
+  
+
+<article class="content">
+        
+  <article class="message is-warning">
+    <div class="message-body">
+      This document is describing an outdated version (v5.2.0). Please consider switching to the latest version (<a href="/openvpn-bosh-release/releases/v5.7.0/">v5.7.0</a>).
+    </div>
+  </article>
+
+
+
+        <h1 id="overview"><code>openvpn</code> job</h1>
+
+        
+          <p>
+            The <code>openvpn</code> job provides an OpenVPN server for clients to connect to.
+          </p>
+        
+
+        <h2 id="usage">Usage</h2>
+
+        <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">releases:
+- name: <span style="color:#e6db74">&#34;openvpn&#34;</span>
+  version: <span style="color:#e6db74">&#34;5.2.0&#34;</span>
+instance_groups:
+- name: <span style="color:#e6db74">&#34;openvpn&#34;</span>
+  jobs:
+  - name: <span style="color:#e6db74">&#34;openvpn&#34;</span>
+    release: <span style="color:#e6db74">&#34;openvpn&#34;</span>
+    properties: {}</code></pre></div>
+
+        
+          
+            <h2 id="properties">Properties</h2>
+
+            <p>The following properties can be configured for the job.</p>
+
+            
+              <h3 id="property-ccd">ccd</h3>
+
+              
+                <div class="content">A list of Client Configuration Directives. This value is an array, with each client being an array whose first value is the client&rsquo;s common name and second value is the OpenVPN directives.</div>
+              
+
+              
+
+              
+                <div class="columns is-vcentered">
+                  <div class="column is-one-fifth has-text-right has-text-left-mobile">Default</div>
+                  <div class="column"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">[]
+</code></pre></div></div>
+                </div>
+              
+
+              
+            
+              <h3 id="property-cipher">cipher</h3>
+
+              
+                <div class="content">Cipher for encrypting packets</div>
+              
+
+              
+
+              
+                <div class="columns is-vcentered">
+                  <div class="column is-one-fifth has-text-right has-text-left-mobile">Default</div>
+                  <div class="column"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">AES-<span style="color:#ae81ff">256</span>-CBC
+</code></pre></div></div>
+                </div>
+              
+
+              
+            
+              <h3 id="property-compress">compress</h3>
+
+              
+                <div class="content">Default compression (or empty to disable)</div>
+              
+
+              
+
+              
+                <div class="columns is-vcentered">
+                  <div class="column is-one-fifth has-text-right has-text-left-mobile">Default</div>
+                  <div class="column"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">auto
+</code></pre></div></div>
+                </div>
+              
+
+              
+            
+              <h3 id="property-device">device</h3>
+
+              
+                <div class="content">Virtual network device to use</div>
+              
+
+              
+
+              
+                <div class="columns is-vcentered">
+                  <div class="column is-one-fifth has-text-right has-text-left-mobile">Default</div>
+                  <div class="column"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">tun0
+</code></pre></div></div>
+                </div>
+              
+
+              
+            
+              <h3 id="property-dh-pem">dh_pem</h3>
+
+              
+                <div class="content">Diffie-Hellmann Key (<code>DH PARAMETERS</code>, including the begin/end markers)</div>
+              
+
+              
+
+              
+
+              
+            
+              <h3 id="property-extra-config">extra_config</h3>
+
+              
+                <div class="content">Custom OpenVPN configuration statements (see <a href="https://community.openvpn.net/openvpn/wiki/Openvpn23ManPage">manual</a>)</div>
+              
+
+              
+
+              
+                <div class="columns is-vcentered">
+                  <div class="column is-one-fifth has-text-right has-text-left-mobile">Default</div>
+                  <div class="column"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#66d9ef">null</span>
+</code></pre></div></div>
+                </div>
+              
+
+              
+            
+              <h3 id="property-extra-configs">extra_configs</h3>
+
+              
+                <div class="content">A list of custom OpenVPN configuration statements (see <a href="https://community.openvpn.net/openvpn/wiki/Openvpn23ManPage">manual</a>)</div>
+              
+
+              
+
+              
+                <div class="columns is-vcentered">
+                  <div class="column is-one-fifth has-text-right has-text-left-mobile">Default</div>
+                  <div class="column"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">[]
+</code></pre></div></div>
+                </div>
+              
+
+              
+            
+              <h3 id="property-keysize">keysize</h3>
+
+              
+                <div class="content">Size of cipher key in bits (deprecated)</div>
+              
+
+              
+
+              
+                <div class="columns is-vcentered">
+                  <div class="column is-one-fifth has-text-right has-text-left-mobile">Default</div>
+                  <div class="column"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ae81ff">256</span>
+</code></pre></div></div>
+                </div>
+              
+
+              
+            
+              <h3 id="property-local">local</h3>
+
+              
+                <div class="content">Bind IP for the server</div>
+              
+
+              
+
+              
+                <div class="columns is-vcentered">
+                  <div class="column is-one-fifth has-text-right has-text-left-mobile">Default</div>
+                  <div class="column"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ae81ff">0.0</span>.<span style="color:#ae81ff">0.0</span>
+</code></pre></div></div>
+                </div>
+              
+
+              
+            
+              <h3 id="property-port">port</h3>
+
+              
+                <div class="content">Bind Port for the server</div>
+              
+
+              
+
+              
+                <div class="columns is-vcentered">
+                  <div class="column is-one-fifth has-text-right has-text-left-mobile">Default</div>
+                  <div class="column"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#ae81ff">1194</span>
+</code></pre></div></div>
+                </div>
+              
+
+              
+            
+              <h3 id="property-protocol">protocol</h3>
+
+              
+                <div class="content">Protocol for the server</div>
+              
+
+              
+
+              
+                <div class="columns is-vcentered">
+                  <div class="column is-one-fifth has-text-right has-text-left-mobile">Default</div>
+                  <div class="column"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">tcp
+</code></pre></div></div>
+                </div>
+              
+
+              
+            
+              <h3 id="property-push-dns">push_dns</h3>
+
+              
+                <div class="content">A list of DNS servers to push to connecting clients to enable DNS resolution over the VPN tunnel</div>
+              
+
+              
+
+              
+                <div class="columns is-vcentered">
+                  <div class="column is-one-fifth has-text-right has-text-left-mobile">Default</div>
+                  <div class="column"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">[]
+</code></pre></div></div>
+                </div>
+              
+
+              
+                <div class="columns is-vcentered">
+                  <div class="column is-one-fifth has-text-right has-text-left-mobile">Example</div>
+                  <div class="column"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- <span style="color:#ae81ff">8.8</span>.<span style="color:#ae81ff">4.4</span>
+- <span style="color:#ae81ff">8.8</span>.<span style="color:#ae81ff">8.8</span>
+</code></pre></div></div>
+                </div>
+              
+            
+              <h3 id="property-push-dns-search-domains">push_dns_search_domains</h3>
+
+              
+                <div class="content">List of search domains to push to clients</div>
+              
+
+              
+
+              
+                <div class="columns is-vcentered">
+                  <div class="column is-one-fifth has-text-right has-text-left-mobile">Default</div>
+                  <div class="column"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">[]
+</code></pre></div></div>
+                </div>
+              
+
+              
+            
+              <h3 id="property-push-routes">push_routes</h3>
+
+              
+                <div class="content">A list of routes to push to connecting clients (in the format of &ldquo;192.0.2.0 255.255.255.0&rdquo;)</div>
+              
+
+              
+
+              
+                <div class="columns is-vcentered">
+                  <div class="column is-one-fifth has-text-right has-text-left-mobile">Default</div>
+                  <div class="column"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">[]
+</code></pre></div></div>
+                </div>
+              
+
+              
+            
+              <h3 id="property-routes">routes</h3>
+
+              
+                <div class="content">A list of routes for the local routing table (in the format of &ldquo;192.0.2.0 255.255.255.0&rdquo;)</div>
+              
+
+              
+
+              
+                <div class="columns is-vcentered">
+                  <div class="column is-one-fifth has-text-right has-text-left-mobile">Default</div>
+                  <div class="column"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">[]
+</code></pre></div></div>
+                </div>
+              
+
+              
+            
+              <h3 id="property-server">server</h3>
+
+              
+                <div class="content">VPN IP and netmask (basis of the IP pool which the server will allocate to clients)</div>
+              
+
+              
+
+              
+
+              
+            
+              <h3 id="property-tls-cipher">tls_cipher</h3>
+
+              
+                <div class="content">A colon-separated list of allowable TLS ciphers</div>
+              
+
+              
+
+              
+
+              
+                <div class="columns is-vcentered">
+                  <div class="column is-one-fifth has-text-right has-text-left-mobile">Example</div>
+                  <div class="column"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">DEFAULT:!EXP:!LOW:!MEDIUM
+</code></pre></div></div>
+                </div>
+              
+            
+              <h3 id="property-tls-crl">tls_crl</h3>
+
+              
+                <div class="content">Certificate Revocation List (<code>X509 CRL</code>, including the begin/end markers)</div>
+              
+
+              
+
+              
+
+              
+            
+              <h3 id="property-tls-crypt">tls_crypt</h3>
+
+              
+                <div class="content">Encrypt control channel packets with private key</div>
+              
+
+              
+
+              
+
+              
+            
+              <h3 id="property-tls-server">tls_server</h3>
+
+              
+                <div class="content">Certificate and Private Key for the server</div>
+              
+
+              
+
+              
+
+              
+                <div class="columns is-vcentered">
+                  <div class="column is-one-fifth has-text-right has-text-left-mobile">Example</div>
+                  <div class="column"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">ca: <span style="color:#e6db74">|
+</span><span style="color:#e6db74">  -----BEGIN CERTIFICATE-----
+</span><span style="color:#e6db74">  ...
+</span><span style="color:#e6db74">  -----END CERTIFICATE-----</span>
+certificate: <span style="color:#e6db74">|
+</span><span style="color:#e6db74">  -----BEGIN CERTIFICATE-----
+</span><span style="color:#e6db74">  ...
+</span><span style="color:#e6db74">  -----END CERTIFICATE-----</span>
+private_key: <span style="color:#e6db74">|
+</span><span style="color:#e6db74">  -----BEGIN RSA PRIVATE KEY-----
+</span><span style="color:#e6db74">  ...
+</span><span style="color:#e6db74">  -----END RSA PRIVATE KEY-----</span>
+</code></pre></div></div>
+                </div>
+              
+            
+              <h3 id="property-tls-version-min">tls_version_min</h3>
+
+              
+                <div class="content">The minimum TLS version accepted from peers</div>
+              
+
+              
+
+              
+                <div class="columns is-vcentered">
+                  <div class="column is-one-fifth has-text-right has-text-left-mobile">Default</div>
+                  <div class="column"><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml"><span style="color:#e6db74">&#34;1.2&#34;</span>
+</code></pre></div></div>
+                </div>
+              
+
+              
+            
+          
+
+
+          
+
+          
+            <h2 id="provides">Provided Links</h2>
+
+            <p>The job provides the following links.</p>
+
+            
+              <h3 id="provides-openvpn">openvpn (<code>openvpn</code>)</h3>
+
+              
+
+              
+                <div class="columns">
+                  <div class="column is-one-fifth has-text-right has-text-left-mobile">Properties</div>
+                  <div class="column">
+                    
+                      <dd><a href="#property-protocol">protocol</a></dd>
+                    
+                      <dd><a href="#property-port">port</a></dd>
+                    
+                      <dd><a href="#property-cipher">cipher</a></dd>
+                    
+                      <dd><a href="#property-keysize">keysize</a></dd>
+                    
+                      <dd><a href="#property-tls-version-min">tls_version_min</a></dd>
+                    
+                      <dd><a href="#property-tls-cipher">tls_cipher</a></dd>
+                    
+                      <dd><a href="#property-tls-crypt">tls_crypt</a></dd>
+                    
+                      <dd><a href="#property-tls-server">tls_server</a></dd>
+                    
+                  </div>
+                </div>
+              
+            
+          
+
+          <h2 id="runtime">Runtime</h2>
+
+          
+            <h3 id="templates">Templates</h3>
+
+            <p>The following templates are rendered and installed in <code>/var/vcap/jobs/openvpn</code>.</p>
+
+            <ul>
+              
+                <li><code>bin/client-connect</code> (<a href="https://github.com/dpb587/openvpn-bosh-release/blob/v5.2.0/jobs/openvpn/templates/bin/client-connect">source</a>)</li>
+              
+                <li><code>bin/control</code> (<a href="https://github.com/dpb587/openvpn-bosh-release/blob/v5.2.0/jobs/openvpn/templates/bin/control">source</a>)</li>
+              
+                <li><code>bin/write-ccd</code> (<a href="https://github.com/dpb587/openvpn-bosh-release/blob/v5.2.0/jobs/openvpn/templates/bin/write-ccd.erb">source</a>)</li>
+              
+                <li><code>etc/openvpn.conf</code> (<a href="https://github.com/dpb587/openvpn-bosh-release/blob/v5.2.0/jobs/openvpn/templates/etc/openvpn.conf.erb">source</a>)</li>
+              
+            </ul>
+          
+
+          
+            <h3 id="packages">Packages</h3>
+
+            <p>The job depends on the following packages installed in <code>/var/vcap/packages</code>.</p>
+
+            <ul>
+              
+                <li><a href="/openvpn-bosh-release/packages/openvpn/v5.2.0/"><code>openvpn</code></a></li>
+              
+            </ul>
+          
+
+          <h2 id="spec">Source</h2>
+
+          <p>
+            Based on <code>jobs/openvpn/spec</code>
+            (<a href="https://github.com/dpb587/openvpn-bosh-release/blob/v5.2.0/jobs/openvpn/spec">source</a>,
+              <a href="https://dpb587.github.io/openvpn-bosh-release/jobs/openvpn/v5.2.0/index.yml">YAML</a>,
+              <a href="https://dpb587.github.io/openvpn-bosh-release/jobs/openvpn/v5.2.0/index.json">JSON</a>).
+          </p>
+        
+      </article>
+    </div>
+    
+      <div class="column table-of-contents is-hidden-mobile">
+        <div class="content is-size-7">
+          <nav id="TableOfContents">
+            <ul>
+              <li>
+                <a href="#overview"><code>openvpn</code> job</a>
+                <ul>
+                  <li><a href="#usage">Usage</a></li>
+                  
+                    
+                      <li>
+                        <a href="#properties">Properties</a>
+                        <ul>
+                          
+                            <li><a href="#property-ccd">ccd</a></li>
+                          
+                            <li><a href="#property-cipher">cipher</a></li>
+                          
+                            <li><a href="#property-compress">compress</a></li>
+                          
+                            <li><a href="#property-device">device</a></li>
+                          
+                            <li><a href="#property-dh-pem">dh_pem</a></li>
+                          
+                            <li><a href="#property-extra-config">extra_config</a></li>
+                          
+                            <li><a href="#property-extra-configs">extra_configs</a></li>
+                          
+                            <li><a href="#property-keysize">keysize</a></li>
+                          
+                            <li><a href="#property-local">local</a></li>
+                          
+                            <li><a href="#property-port">port</a></li>
+                          
+                            <li><a href="#property-protocol">protocol</a></li>
+                          
+                            <li><a href="#property-push-dns">push_dns</a></li>
+                          
+                            <li><a href="#property-push-dns-search-domains">push_dns_search_domains</a></li>
+                          
+                            <li><a href="#property-push-routes">push_routes</a></li>
+                          
+                            <li><a href="#property-routes">routes</a></li>
+                          
+                            <li><a href="#property-server">server</a></li>
+                          
+                            <li><a href="#property-tls-cipher">tls_cipher</a></li>
+                          
+                            <li><a href="#property-tls-crl">tls_crl</a></li>
+                          
+                            <li><a href="#property-tls-crypt">tls_crypt</a></li>
+                          
+                            <li><a href="#property-tls-server">tls_server</a></li>
+                          
+                            <li><a href="#property-tls-version-min">tls_version_min</a></li>
+                          
+                        </ul>
+                      </li>
+                    
+                    
+                    
+                      <li>
+                        <a href="#provides">Provided Links</a>
+                        <ul>
+                          
+                            <li><a href="#provides-openvpn">openvpn (<code>openvpn</code>)</a></li>
+                          
+                        </ul>
+                      </li>
+                    
+                    <li>
+                      <a href="#runtime">Runtime</a>
+                      <ul>
+                        
+                          <li><a href="#templates">Templates</a></li>
+                        
+                        
+                          <li><a href="#packages">Packages</a></li>
+                        
+                      </ul>
+                    </li>
+                    <li><a href="#spec">Source</a></li>
+                  
+                </ul>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    
+  </div>
+
+        </div>
+      </div>
+    </section><footer class="footer">
+  <div class="content has-text-centered">
+    
+      <a href="https://github.com/dpb587/openvpn-bosh-release">OpenVPN BOSH Release</a> by <a href="https://dpb587.me/">Danny Berger</a>.
+    
+  </div>
+</footer>
+</body>
+</html>

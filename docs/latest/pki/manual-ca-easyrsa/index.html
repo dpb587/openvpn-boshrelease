@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html>
+  <head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Manual Ca Easyrsa | openvpn-bosh-release</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
+<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-37464314-3', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    <style type="text/css">
+      body > .section {
+        padding-top: 1.75rem;
+      }
+      nav#TableOfContents > ul,
+      nav#TableOfContents > ul > li > ul {
+        list-style: none;
+        margin-left: 0;
+      }
+      nav#TableOfContents > ul > li > a {
+        display: none;
+      }
+    </style>
+  </head>
+  <body><nav class="navbar is-info" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="https://dpb587.github.io/openvpn-bosh-release">
+      
+        <img height="28" src="https://github.com/dpb587.png" style="border-radius:4px;margin-right:0.5rem">
+      
+      openvpn-bosh-release
+    </a>
+
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarExpanded">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarExpanded" class="navbar-menu">
+    <div class="navbar-start">
+      
+        <a class="navbar-item" href="/openvpn-bosh-release/docs/latest/">docs</a>
+      
+        <a class="navbar-item" href="/openvpn-bosh-release/releases/">releases</a>
+      
+        <a class="navbar-item" href="https://github.com/dpb587/openvpn-bosh-release">github</a>
+      
+    </div>
+
+    <div class="navbar-end"><div class="navbar-item" style="padding-left:0">
+          <a class="navbar-item" href="https://bosh.io/" title="BOSH" style="background-color:#fff;border-radius:4px;padding:.5rem">
+            <img height="28" src="/openvpn-bosh-release/img/cff-bosh.png" style="border-radius:4px">
+          </a>
+        </div></div>
+  </div>
+</nav>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+    if ($navbarBurgers.length > 0) {
+      $navbarBurgers.forEach( el => {
+        el.addEventListener('click', () => {
+          const target = el.dataset.target;
+          const $target = document.getElementById(target);
+
+          el.classList.toggle('is-active');
+          $target.classList.toggle('is-active');
+        });
+      });
+    }
+  });
+</script>
+
+<section class="section">
+      <div class="columns">
+        <div class="column">
+  
+  <aside class="menu">
+    <ul class="menu-list">
+<li><a href="/openvpn-bosh-release/docs/latest/">Overview</a></li>
+<li><a href="/openvpn-bosh-release/docs/latest/release-practices/">Release Practices</a></li>
+</ul>
+
+<p class="menu-label">Server Operations</p>
+
+<ul class="menu-list">
+<li><a href="/openvpn-bosh-release/docs/latest/server/deployment/">Deployment</a></li>
+<li><a href="/openvpn-bosh-release/docs/latest/server/advanced/">Advanced Settings</a></li>
+<li><a href="/openvpn-bosh-release/docs/latest/pki/">PKI Operations</a>
+
+<ul class="menu-list">
+<li><a class="is-active" href="/openvpn-bosh-release/docs/latest/pki/manual-ca-easyrsa/">Manual CA (easyrsa)</a></li>
+</ul></li>
+</ul>
+
+<p class="menu-label">Client Operations</p>
+
+<ul class="menu-list">
+<li><a href="/openvpn-bosh-release/docs/latest/client/deployment/">Deployment</a></li>
+<li><a href="/openvpn-bosh-release/docs/latest/client/end-user-software/">End-User Software</a></li>
+</ul>
+
+
+
+
+
+<p class="menu-label">Latest Release (v5.7.0)</p>
+<ul class="menu-list">
+  
+  <li><a href="/openvpn-bosh-release/releases/v5.7.0/">Overview</a></li>
+  
+    <li><a href="/openvpn-bosh-release/jobs/openvpn/v5.7.0/">openvpn</a></li>
+  
+    <li><a href="/openvpn-bosh-release/jobs/openvpn-client/v5.7.0/">openvpn-client</a></li>
+  
+    <li><a href="/openvpn-bosh-release/jobs/openvpn-clients/v5.7.0/">openvpn-clients</a></li>
+  
+</ul>
+
+
+  </aside>
+
+</div>
+        <div class="column is-four-fifths">
+          
+  <div class="columns">
+    <div class="column is-four-fifths">
+  
+  
+
+  
+    
+      
+      
+    
+  
+
+  
+    
+    
+    
+      
+    
+
+    <div class="is-size-5 is-pulled-right">
+      <a href="https://github.com/dpb587/openvpn-bosh-release/blob/master/docs/pki/manual-ca-easyrsa.md" rel="noopener" target="_blank" title="Contribute changes to this page" style="opacity:0.7">
+        <i class="fas fa-pencil-alt"></i>
+      </a>
+    </div>
+  
+
+<article class="content">
+
+<h1 id="manual-ca-with-easyrsa">Manual CA with easyrsa</h1>
+
+<p>If you need help creating one, you might find the <a href="https://github.com/OpenVPN/easy-rsa/">easyrsa</a> package helpful. Use the following to manage an easyrsa-based PKI for OpenVPN&hellip;</p>
+
+<h2 id="initial-setup">Initial Setup</h2>
+
+<p>First download the <code>easyrsa</code> package.</p>
+
+<pre><code>$ mkdir easyrsa
+$ wget -qO- &quot;https://github.com/OpenVPN/easy-rsa/releases/download/v3.0.0-rc1/EasyRSA-3.0.0-rc1.tgz&quot; \
+  | tar -xzC easyrsa --strip-components 1
+</code></pre>
+
+<p>Customize a <code>.envrc</code> file to store some reusable config values (try <a href="http://direnv.net/">direnv</a>&hellip;</p>
+
+<pre><code>$ cat &gt; .env &lt;&lt; EOF
+export OPENVPN_HOST=&quot;vpn.example.com&quot;
+export OPENVPN_PORT=1194
+export EASYRSA_VARS_FILE=&quot;vars&quot;
+export EASYRSA_REQ_COUNTRY=&quot;US&quot;
+export EASYRSA_REQ_PROVINCE=&quot;California&quot;
+export EASYRSA_REQ_CITY=&quot;San Francisco&quot;
+export EASYRSA_REQ_ORG=&quot;Copyleft Certificate Co&quot;
+export EASYRSA_REQ_OU=&quot;My Organizational Unit&quot;
+export EASYRSA_REQ_EMAIL=&quot;me@example.net&quot;
+EOF
+
+$ direnv allow
+direnv: loading .envrc
+</code></pre>
+
+<p>Initialize your PKI and create the authority&hellip;</p>
+
+<pre><code>$ ( cd easyrsa/ &amp;&amp; EASYRSA_PKI=../pki ./easyrsa init-pki )
+$ cd pki
+$ cat ../easyrsa/vars.example \
+  | sed -E &quot;s/^#?set_var[[:space:]]+EASYRSA[[:space:]]+.*\$/set_var EASYRSA \&quot;\$PWD\/..\/easyrsa\&quot;/&quot; \
+  | sed -E &quot;s/^#?set_var[[:space:]]+EASYRSA_PKI[[:space:]]+.*\$/set_var EASYRSA_PKI \&quot;\$PWD\&quot;/&quot; \
+  &gt; vars
+$ ../easyrsa/easyrsa build-ca
+  # password will be used whenever you need to sign new certificates
+  # common name = openvpn
+$ ../easyrsa/easyrsa gen-crl
+$ ../easyrsa/easyrsa gen-dh
+$ cd ../
+</code></pre>
+
+<h2 id="creating-a-new-key">Creating a New Key</h2>
+
+<p>When a server or client needs to generate a certificate, you can use a temporary directory and <code>openssl</code> to create one.</p>
+
+<p>First create a temporary directory, named after the unique server or client profile name&hellip;</p>
+
+<pre><code>mkdir main-server
+cd main-server
+</code></pre>
+
+<p>Then create a key and certificate request&hellip;</p>
+
+<pre><code>$ openssl req -new -nodes -days 3650 -newkey rsa:2048 \
+  -subj &quot;/C=$EASYRSA_REQ_COUNTRY/ST=$EASYRSA_REQ_PROVINCE/L=$EASYRSA_REQ_CITY/O=$EASYRSA_REQ_ORG/OU=$EASYRSA_REQ_OU/CN=$( basename $PWD )/emailAddress=$EASYRSA_REQ_EMAIL&quot; \
+  -out &quot;$( dirname $PWD ).req&quot; \
+  -keyout &quot;$( dirname $PWD ).key&quot;
+</code></pre>
+
+<p><a href="#signing-a-certificate-request">Sign the certificate</a>. In the case of a server certificate, you may want to retain the private key in your <code>pki</code> directory&hellip;</p>
+
+<pre><code>cp &quot;$( dirname $PWD ).key&quot; &quot;$PKI_DIR/private/$( dirname $PWD ).key&quot;
+</code></pre>
+
+<p>Once signed and delivered for the connection profile, you should delete the temporary directory with the <code>*.req</code> and <code>*.key</code> files.</p>
+
+<h2 id="signing-a-certificate-request">Signing a Certificate Request</h2>
+
+<p>The <code>easyrsa</code> package can create two types of certificates (client and server) which can only be used for their specific purpose. Assuming you received a certificate signing request file of <code>certificate.req</code>, first import it into your <code>pki</code> directory&hellip;</p>
+
+<pre><code>$ CN=$( openssl req -in certificate.req -noout -subject | sed -E 's#^.+/CN=([^/]+).*#\1#' )
+$ mv certificate.req &quot;pki/reqs/$CN.req&quot;
+$ cd pki
+</code></pre>
+
+<p><strong>Server Certificate</strong></p>
+
+<pre><code>$ ../easyrsa/easyrsa sign server &quot;$CN&quot;
+</code></pre>
+
+<p><strong>Client Certificate</strong></p>
+
+<pre><code>$ ../easyrsa/easyrsa sign client &quot;$CN&quot;
+</code></pre>
+
+<p>Once a certificate is signed, you can provide it back to the requester.</p>
+
+<pre><code>$ cat &quot;pki/issued/$CN.crt&quot;
+</code></pre>
+
+<h1 id="server-configuration">Server Configuration</h1>
+
+<p>Once you have a PKI setup and a server key-pair configured, you can use the file data for the <code>openvpn</code> job properties.</p>
+
+<ul>
+<li><code>tls_key_pair.ca</code> is <code>./pki/ca.crt</code></li>
+<li><code>tls_key_pair.certificate</code> is <code>./pki/issued/main-server.crt</code></li>
+<li><code>tls_key_pair.private_key</code> is <code>./pki/private/main-server.key</code></li>
+<li><code>tls_crl</code> is <code>./pki/crl.pem</code></li>
+<li><code>dh_pem</code> is <code>./pki/dh.pem</code></li>
+</ul>
+
+<h1 id="client-configuration">Client Configuration</h1>
+
+<p>Once a client has had their key-pair signed, they will want to include it in the base OpenVPN profile configuration:</p>
+
+<ul>
+<li><code>&lt;key&gt;</code> is the client private key</li>
+<li><code>&lt;cert&gt;</code> is the signed certificate</li>
+</ul>
+
+<p>Typically, the base OpenVPN profile configuration should be provided by the OpenVPN server operator. It will look something like the following.</p>
+
+<pre><code>client
+dev tun
+proto tcp
+remote $OPENVPN_HOST $OPENVPN_PORT
+comp-lzo
+resolv-retry infinite
+nobind
+persist-key
+persist-tun
+mute-replay-warnings
+remote-cert-tls server
+verb 3
+mute 20
+tls-client
+&lt;ca&gt;
+# OpenVPN server CA
+&lt;/ca&gt;
+</code></pre>
+
+<p>Once the user appends their private key to the profile, they can use file with their <a href="/openvpn-bosh-release/docs/latest/client/end-user-software/">OpenVPN client</a>.</p>
+
+<p>$ openvpn &ndash;config client.ovpn</p>
+</article>
+</div>
+
+  <div class="column table-of-contents is-hidden-mobile">
+    <div class="content is-size-7">
+      <nav id="TableOfContents">
+<ul>
+<li><a href="#manual-ca-with-easyrsa">Manual CA with easyrsa</a>
+<ul>
+<li><a href="#initial-setup">Initial Setup</a></li>
+<li><a href="#creating-a-new-key">Creating a New Key</a></li>
+<li><a href="#signing-a-certificate-request">Signing a Certificate Request</a></li>
+</ul></li>
+<li><a href="#server-configuration">Server Configuration</a></li>
+<li><a href="#client-configuration">Client Configuration</a></li>
+</ul>
+</nav>
+    </div>
+  </div>
+
+</div>
+
+        </div>
+      </div>
+    </section><footer class="footer">
+  <div class="content has-text-centered">
+    
+      <a href="https://github.com/dpb587/openvpn-bosh-release">OpenVPN BOSH Release</a> by <a href="https://dpb587.me/">Danny Berger</a>.
+    
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html>
+  <head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>
+    Releases | openvpn-bosh-release</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
+<script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-37464314-3', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    <style type="text/css">
+      body > .section {
+        padding-top: 1.75rem;
+      }
+      nav#TableOfContents > ul,
+      nav#TableOfContents > ul > li > ul {
+        list-style: none;
+        margin-left: 0;
+      }
+      nav#TableOfContents > ul > li > a {
+        display: none;
+      }
+    </style>
+  </head>
+  <body><nav class="navbar is-info" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="https://dpb587.github.io/openvpn-bosh-release">
+      
+        <img height="28" src="https://github.com/dpb587.png" style="border-radius:4px;margin-right:0.5rem">
+      
+      openvpn-bosh-release
+    </a>
+
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarExpanded">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarExpanded" class="navbar-menu">
+    <div class="navbar-start">
+      
+        <a class="navbar-item" href="/openvpn-bosh-release/docs/latest/">docs</a>
+      
+        <a class="navbar-item" href="/openvpn-bosh-release/releases/">releases</a>
+      
+        <a class="navbar-item" href="https://github.com/dpb587/openvpn-bosh-release">github</a>
+      
+    </div>
+
+    <div class="navbar-end"><div class="navbar-item" style="padding-left:0">
+          <a class="navbar-item" href="https://bosh.io/" title="BOSH" style="background-color:#fff;border-radius:4px;padding:.5rem">
+            <img height="28" src="/openvpn-bosh-release/img/cff-bosh.png" style="border-radius:4px">
+          </a>
+        </div></div>
+  </div>
+</nav>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+    if ($navbarBurgers.length > 0) {
+      $navbarBurgers.forEach( el => {
+        el.addEventListener('click', () => {
+          const target = el.dataset.target;
+          const $target = document.getElementById(target);
+
+          el.classList.toggle('is-active');
+          $target.classList.toggle('is-active');
+        });
+      });
+    }
+  });
+</script>
+
+<section class="section">
+      <div class="columns">
+        <div class="column">
+  
+  <aside class="menu">
+    <ul class="menu-list">
+<li><a href="/openvpn-bosh-release/docs/latest/">Overview</a></li>
+<li><a href="/openvpn-bosh-release/docs/latest/release-practices/">Release Practices</a></li>
+</ul>
+
+<p class="menu-label">Server Operations</p>
+
+<ul class="menu-list">
+<li><a href="/openvpn-bosh-release/docs/latest/server/deployment/">Deployment</a></li>
+<li><a href="/openvpn-bosh-release/docs/latest/server/advanced/">Advanced Settings</a></li>
+<li><a href="/openvpn-bosh-release/docs/latest/pki/">PKI Operations</a>
+
+<ul class="menu-list">
+<li><a href="/openvpn-bosh-release/docs/latest/pki/manual-ca-easyrsa/">Manual CA (easyrsa)</a></li>
+</ul></li>
+</ul>
+
+<p class="menu-label">Client Operations</p>
+
+<ul class="menu-list">
+<li><a href="/openvpn-bosh-release/docs/latest/client/deployment/">Deployment</a></li>
+<li><a href="/openvpn-bosh-release/docs/latest/client/end-user-software/">End-User Software</a></li>
+</ul>
+
+
+
+
+
+<p class="menu-label">Latest Release (v5.7.0)</p>
+<ul class="menu-list">
+  
+  <li><a href="/openvpn-bosh-release/releases/v5.7.0/">Overview</a></li>
+  
+    <li><a href="/openvpn-bosh-release/jobs/openvpn/v5.7.0/">openvpn</a></li>
+  
+    <li><a href="/openvpn-bosh-release/jobs/openvpn-client/v5.7.0/">openvpn-client</a></li>
+  
+    <li><a href="/openvpn-bosh-release/jobs/openvpn-clients/v5.7.0/">openvpn-clients</a></li>
+  
+</ul>
+
+
+  </aside>
+
+</div>
+        <div class="column is-four-fifths">
+          
+  <div class="columns">
+    <div class="column is-four-fifths">
+      <article class="content">
+        <h1 id="releases">Releases</h1><article class="content"><p>Below are the official releases and their assets. Alternatively, <a href="https://bosh.io/releases/github.com/dpb587/openvpn-bosh-release?all=1">bosh.io</a> also maintains tarballs for these releases.</p>
+</article>
+
+          <div class="content">
+            <div class="columns">
+              <div class="column is-one-fifth">
+                <h2 id="v5.7.0"><a href="https://dpb587.github.io/openvpn-bosh-release/releases/v5.7.0/">v5.7.0</a></h2>
+              </div>
+              <div class="column">
+                <nav class="level">
+                  <div class="level-left">
+                    
+                      <div class="level-item">
+                        <p class="subtitle is-5">
+                          <strong><time datetime="2021-03-06T16:09:54-07:00" title="2021-03-06T16:09:54-07:00">March 6, 2021</strong></time>
+                        </p>
+                      </div>
+                    
+                    
+                      <div class="level-item">
+                        <span class="tag is-primary is-medium">latest</span>
+                      </div>
+                    
+                  </div>
+                </nav><article class="content"><p><strong>Upgrades</strong></p>
+
+<ul>
+<li>openssl 1.1.1j (<a href="https://www.openssl.org/news/changelog.html">changelog</a>; was 1.1.1f)</li>
+<li>openvpn 2.5.1 (<a href="https://github.com/OpenVPN/openvpn/blob/release/2.5/Changes.rst">changelog</a>; was 2.4.9)</li>
+</ul>
+</article>
+</div>
+            </div>
+          </div>
+        
+          <div class="content">
+            <div class="columns">
+              <div class="column is-one-fifth">
+                <h2 id="v5.6.0"><a href="https://dpb587.github.io/openvpn-bosh-release/releases/v5.6.0/">v5.6.0</a></h2>
+              </div>
+              <div class="column">
+                <nav class="level">
+                  <div class="level-left">
+                    
+                      <div class="level-item">
+                        <p class="subtitle is-5">
+                          <strong><time datetime="2020-05-23T07:32:50-07:00" title="2020-05-23T07:32:50-07:00">May 23, 2020</strong></time>
+                        </p>
+                      </div>
+                    
+                    
+                  </div>
+                </nav><article class="content"><p><strong>Upgrades</strong></p>
+
+<ul>
+<li>openssl 1.1.1f (<a href="https://www.openssl.org/news/changelog.html">changelog</a>; was 1.1.1d)</li>
+<li>openvpn 2.4.9 (<a href="https://github.com/OpenVPN/openvpn/blob/release/2.4/Changes.rst">changelog</a>; was 2.4.8)</li>
+</ul>
+</article>
+</div>
+            </div>
+          </div>
+        
+          <div class="content">
+            <div class="columns">
+              <div class="column is-one-fifth">
+                <h2 id="v5.5.0"><a href="https://dpb587.github.io/openvpn-bosh-release/releases/v5.5.0/">v5.5.0</a></h2>
+              </div>
+              <div class="column">
+                <nav class="level">
+                  <div class="level-left">
+                    
+                      <div class="level-item">
+                        <p class="subtitle is-5">
+                          <strong><time datetime="2019-12-07T17:54:55-08:00" title="2019-12-07T17:54:55-08:00">December 7, 2019</strong></time>
+                        </p>
+                      </div>
+                    
+                    
+                  </div>
+                </nav><article class="content"><p><strong>Upgrades</strong></p>
+
+<ul>
+<li>openssl 1.1.1d (<a href="https://www.openssl.org/news/changelog.html">changelog</a>; was 1.1.1c)</li>
+<li>openvpn 2.4.8 (<a href="https://github.com/OpenVPN/openvpn/blob/release/2.4/Changes.rst">changelog</a>; was 2.4.7)</li>
+</ul>
+</article>
+</div>
+            </div>
+          </div>
+        
+          <div class="content">
+            <div class="columns">
+              <div class="column is-one-fifth">
+                <h2 id="v5.4.0"><a href="https://dpb587.github.io/openvpn-bosh-release/releases/v5.4.0/">v5.4.0</a></h2>
+              </div>
+              <div class="column">
+                <nav class="level">
+                  <div class="level-left">
+                    
+                      <div class="level-item">
+                        <p class="subtitle is-5">
+                          <strong><time datetime="2019-06-08T09:30:19-07:00" title="2019-06-08T09:30:19-07:00">June 8, 2019</strong></time>
+                        </p>
+                      </div>
+                    
+                    
+                  </div>
+                </nav><article class="content"><p><strong>Enhancements</strong></p>
+
+<ul>
+<li>Improve the hosted <a href="https://dpb587.github.io/openvpn-bosh-release">documentation site</a>.</li>
+</ul>
+
+<p><strong>Bug Fixes</strong></p>
+
+<ul>
+<li>Fix suggested <code>compress</code> algorithm property values (<a href="https://github.com/dpb587/openvpn-bosh-release/pull/20">#20</a>).</li>
+<li>Update deployment manifest examples for use of BOSH v2 manifests and recent artifacts (<a href="https://github.com/dpb587/openvpn-bosh-release/pull/19">#19</a>).</li>
+</ul>
+
+<p><strong>Upgrades</strong></p>
+
+<ul>
+<li>openssl 1.1.1c (<a href="https://www.openssl.org/news/changelog.html">changelog</a>; was 1.1.1b)</li>
+</ul>
+</article>
+</div>
+            </div>
+          </div>
+        
+          <div class="content">
+            <div class="columns">
+              <div class="column is-one-fifth">
+                <h2 id="v5.3.0"><a href="https://dpb587.github.io/openvpn-bosh-release/releases/v5.3.0/">v5.3.0</a></h2>
+              </div>
+              <div class="column">
+                <nav class="level">
+                  <div class="level-left">
+                    
+                      <div class="level-item">
+                        <p class="subtitle is-5">
+                          <strong><time datetime="2019-02-26T20:51:29-08:00" title="2019-02-26T20:51:29-08:00">February 26, 2019</strong></time>
+                        </p>
+                      </div>
+                    
+                    
+                  </div>
+                </nav><article class="content"><p>Upgrades</p>
+
+<ul>
+<li>openssl 1.1.1b (<a href="https://www.openssl.org/news/changelog.html">changelog</a>; was 1.1.1a)</li>
+<li>openvpn 2.4.7 (<a href="https://github.com/OpenVPN/openvpn/blob/release/2.4/Changes.rst#version-247">changelog</a>; was 2.4.6)</li>
+</ul>
+</article>
+</div>
+            </div>
+          </div>
+        
+          <div class="content">
+            <div class="columns">
+              <div class="column is-one-fifth">
+                <h2 id="v5.2.0"><a href="https://dpb587.github.io/openvpn-bosh-release/releases/v5.2.0/">v5.2.0</a></h2>
+              </div>
+              <div class="column">
+                <nav class="level">
+                  <div class="level-left">
+                    
+                      <div class="level-item">
+                        <p class="subtitle is-5">
+                          <strong><time datetime="2018-12-16T04:58:42Z" title="2018-12-16T04:58:42Z">December 16, 2018</strong></time>
+                        </p>
+                      </div>
+                    
+                    
+                  </div>
+                </nav><article class="content"><p>Upgrades</p>
+
+<ul>
+<li>openssl 1.1.1a (<a href="https://www.openssl.org/news/changelog.html">changelog</a>; was 1.1.0h)</li>
+</ul>
+
+<p>Development</p>
+
+<ul>
+<li>pipeline/automation improvements</li>
+<li>switch to terraform resource and credential management</li>
+</ul>
+</article>
+</div>
+            </div>
+          </div>
+        
+          <div class="content">
+            <div class="columns">
+              <div class="column is-one-fifth">
+                <h2 id="v5.1.0"><a href="https://dpb587.github.io/openvpn-bosh-release/releases/v5.1.0/">v5.1.0</a></h2>
+              </div>
+              <div class="column">
+                <nav class="level">
+                  <div class="level-left">
+                    
+                      <div class="level-item">
+                        <p class="subtitle is-5">
+                          <strong><time datetime="2018-07-08T21:27:17-07:00" title="2018-07-08T21:27:17-07:00">July 8, 2018</strong></time>
+                        </p>
+                      </div>
+                    
+                    
+                  </div>
+                </nav><article class="content"><p>Upgrades</p>
+
+<ul>
+<li>openvpn 2.4.6 (<a href="https://community.openvpn.net/openvpn/wiki/ChangesInOpenvpn24#OpenVPN2.4.6">changelog</a>; was 2.4.5)</li>
+</ul>
+
+<p>Development</p>
+
+<ul>
+<li>switch upgrader to use <a href="https://github.com/dpb587/dynamic-metalink-resource">dynamic-metalink</a></li>
+<li>refactor pipeline to reuse <a href="https://github.com/dpb587/bosh-release-resource">bosh-release</a></li>
+<li>add testing for Ubuntu Xenial stemcells</li>
+</ul>
+</article>
+</div>
+            </div>
+          </div>
+        
+          <div class="content">
+            <div class="columns">
+              <div class="column is-one-fifth">
+                <h2 id="v5.0.0"><a href="https://dpb587.github.io/openvpn-bosh-release/releases/v5.0.0/">v5.0.0</a></h2>
+              </div>
+              <div class="column">
+                <nav class="level">
+                  <div class="level-left">
+                    
+                      <div class="level-item">
+                        <p class="subtitle is-5">
+                          <strong><time datetime="2018-04-10T06:59:20-07:00" title="2018-04-10T06:59:20-07:00">April 10, 2018</strong></time>
+                        </p>
+                      </div>
+                    
+                    
+                  </div>
+                </nav><article class="content"><p>Breaking Changes</p>
+
+<ul>
+<li>the <code>openvpn</code> job will now always push the <code>compress</code> property to clients, when configured (<code>push_compress</code> property has been removed)</li>
+</ul>
+
+<p>New Features</p>
+
+<ul>
+<li>the <code>compress</code> algorithm will now, by default, be automatically determined based on client compatibility (this adds implicit support for older, 2.3 clients)</li>
+<li>the <code>openvpn-client</code> job can now be configured with a static <code>username</code> and <code>password</code></li>
+</ul>
+
+<p>Upgrades</p>
+
+<ul>
+<li>openvpn 2.4.5 (was 2.4.4)</li>
+<li>openssl 1.1.0h (was 1.1.0g)</li>
+</ul>
+
+<p>Development</p>
+
+<ul>
+<li>add job template testing</li>
+<li>move artifacts into a separate <code>artifacts</code> branch</li>
+<li>add dev/beta/rc/stable channels for external consumption</li>
+</ul>
+</article>
+</div>
+            </div>
+          </div>
+        
+          <div class="content">
+            <div class="columns">
+              <div class="column is-one-fifth">
+                <h2 id="v4.2.1"><a href="https://dpb587.github.io/openvpn-bosh-release/releases/v4.2.1/">v4.2.1</a></h2>
+              </div>
+              <div class="column">
+                <nav class="level">
+                  <div class="level-left">
+                    
+                      <div class="level-item">
+                        <p class="subtitle is-5">
+                          <strong><time datetime="2018-02-12T21:44:52-08:00" title="2018-02-12T21:44:52-08:00">February 12, 2018</strong></time>
+                        </p>
+                      </div>
+                    
+                    
+                  </div>
+                </nav><article class="content"><ul>
+<li>fix: client config directories cannot be used on stemcells v3541+</li>
+</ul>
+</article>
+</div>
+            </div>
+          </div>
+        
+          <div class="content">
+            <div class="columns">
+              <div class="column is-one-fifth">
+                <h2 id="v4.2.0"><a href="https://dpb587.github.io/openvpn-bosh-release/releases/v4.2.0/">v4.2.0</a></h2>
+              </div>
+              <div class="column">
+                <nav class="level">
+                  <div class="level-left">
+                    
+                      <div class="level-item">
+                        <p class="subtitle is-5">
+                          <strong><time datetime="2017-12-10T20:51:40-08:00" title="2017-12-10T20:51:40-08:00">December 10, 2017</strong></time>
+                        </p>
+                      </div>
+                    
+                    
+                  </div>
+                </nav><article class="content"><ul>
+<li>fix: openvpn should use embedded release version of openssl rather than system version</li>
+<li>enhancement: parallelize compilation steps to use all available CPUs</li>
+<li>upgrade: openssl/1.0.1g (was 1.0.1f)</li>
+</ul>
+</article>
+</div>
+            </div>
+          </div>
+        
+          <div class="content">
+            <div class="columns">
+              <div class="column is-one-fifth">
+                <h2 id="v4.1.0"><a href="https://dpb587.github.io/openvpn-bosh-release/releases/v4.1.0/">v4.1.0</a></h2>
+              </div>
+              <div class="column">
+                <nav class="level">
+                  <div class="level-left">
+                    
+                      <div class="level-item">
+                        <p class="subtitle is-5">
+                          <strong><time datetime="2017-09-30T18:11:20-07:00" title="2017-09-30T18:11:20-07:00">September 30, 2017</strong></time>
+                        </p>
+                      </div>
+                    
+                    
+                  </div>
+                </nav><article class="content"><ul>
+<li>add <code>openvpn-clients</code> job to support running multiple clients with raw openvpn configuration files</li>
+<li>upgrade: openssl/1.0.1f (was 1.0.1e)</li>
+<li>upgrade: openvpn/2.4.4 (was 2.4.3)</li>
+</ul>
+</article>
+</div>
+            </div>
+          </div>
+        
+          <div class="content">
+            <div class="columns">
+              <div class="column is-one-fifth">
+                <h2 id="v4.0.0"><a href="https://dpb587.github.io/openvpn-bosh-release/releases/v4.0.0/">v4.0.0</a></h2>
+              </div>
+              <div class="column">
+                <nav class="level">
+                  <div class="level-left">
+                    
+                      <div class="level-item">
+                        <p class="subtitle is-5">
+                          <strong><time datetime="2017-06-27T23:22:20-07:00" title="2017-06-27T23:22:20-07:00">June 27, 2017</strong></time>
+                        </p>
+                      </div>
+                    
+                    
+                  </div>
+                </nav><article class="content"><p><em>Please review these changes carefully - many properties and defaults have changed which may impact connectivity. While breaking changes are generally avoided, the goals of this release necessitated some significant changes. Those goals were: utilize modern BOSH features, encourage secure defaults, avoid duplicating features, and simplify configuration requirements.</em></p>
+
+<p>Breaking Changes</p>
+
+<ul>
+<li>properties are no longer prefixed with <code>openvpn</code> namespace</li>
+<li>the <code>openvpn</code> job will no longer act as a client (see the new <code>openvpn-client</code> job)</li>
+<li>the <code>openvpn</code> job improves security defaults (either explicitly use older values, or upgrade clients as necessary)
+
+<ul>
+<li><code>cipher</code> is now <code>AES-256-CBC</code> (this must be in sync with clients; previous default <code>BF-CBC</code>)</li>
+<li><code>tls_version_min</code> is now <code>1.2</code> (requires clients 2.3.3+; previous default <code>1.0</code>)</li>
+</ul></li>
+<li>custom iptables rules are no longer managed (use the <code>iptables</code> job of <a href="https://github.com/cloudfoundry/networking-release">networking</a> release instead)</li>
+<li>server and client certificates are now configured with the <code>tls_server</code> and <code>tls_client</code> properties, respectively (previously via <code>ca_crt</code>, <code>certificate</code>, and <code>private_key</code> properties)</li>
+<li>certificate revocation lists for <code>openvpn</code> are now configured with the <code>tls_crl</code> property (previously via <code>crl_pem</code> property)</li>
+</ul>
+
+<p>New Features</p>
+
+<ul>
+<li>UDP is now supported (see <code>protocol</code> property of <code>openvpn</code>)</li>
+<li>the openvpn <code>compress</code> option is now supported (see <code>compress</code> property of <code>openvpn</code>)</li>
+<li>the openvpn <code>tls-crypt</code> option is now supported (see <code>tls_crypt</code> property of <code>openvpn</code>)</li>
+<li>new <code>extra_configs</code> property of <code>openvpn</code> and <code>openvpn-client</code> (similar to <code>extra_config</code>, but accepts an array of openvpn directives)</li>
+<li>new <code>device</code> property is now supported for explicit virtual network device usage</li>
+<li>certificate-related properties can now be dynamically generated</li>
+</ul>
+
+<p>Development &amp; Tooling</p>
+
+<ul>
+<li>git version tags now refer to the commit a release was created from (previously the commit which finalized the release was used)</li>
+</ul>
+</article>
+</div>
+            </div>
+          </div>
+        
+          <div class="content">
+            <div class="columns">
+              <div class="column is-one-fifth">
+                <h2 id="v3.2.2"><a href="https://dpb587.github.io/openvpn-bosh-release/releases/v3.2.2/">v3.2.2</a></h2>
+              </div>
+              <div class="column">
+                <nav class="level">
+                  <div class="level-left">
+                    
+                      <div class="level-item">
+                        <p class="subtitle is-5">
+                          <strong><time datetime="2017-06-23T07:12:33Z" title="2017-06-23T07:12:33Z">June 23, 2017</strong></time>
+                        </p>
+                      </div>
+                    
+                    
+                  </div>
+                </nav><article class="content"><p>Upgrades</p>
+
+<ul>
+<li>openvpn 2.4.3</li>
+</ul>
+</article>
+</div>
+            </div>
+          </div>
+        
+          <div class="content">
+            <div class="columns">
+              <div class="column is-one-fifth">
+                <h2 id="v3.2.1"><a href="https://dpb587.github.io/openvpn-bosh-release/releases/v3.2.1/">v3.2.1</a></h2>
+              </div>
+              <div class="column">
+                <nav class="level">
+                  <div class="level-left">
+                    
+                      <div class="level-item">
+                        <p class="subtitle is-5">
+                          <strong><time datetime="2017-06-12T02:09:06Z" title="2017-06-12T02:09:06Z">June 12, 2017</strong></time>
+                        </p>
+                      </div>
+                    
+                    
+                  </div>
+                </nav><article class="content"><p>No changes (release automation changes only)</p>
+</article>
+</div>
+            </div>
+          </div>
+        
+          <div class="content">
+            <div class="columns">
+              <div class="column is-one-fifth">
+                <h2 id="v3.2.0"><a href="https://dpb587.github.io/openvpn-bosh-release/releases/v3.2.0/">v3.2.0</a></h2>
+              </div>
+              <div class="column">
+                <nav class="level">
+                  <div class="level-left">
+                    
+                      <div class="level-item">
+                        <p class="subtitle is-5">
+                          <strong><time datetime="2017-06-08T02:16:09Z" title="2017-06-08T02:16:09Z">June 8, 2017</strong></time>
+                        </p>
+                      </div>
+                    
+                    
+                  </div>
+                </nav><article class="content"><ul>
+<li>support pushing DNS servers via <code>openvpn.push_dns</code></li>
+<li>support pushing DNS search domains via <code>openvpn.push_dns_search_domains</code></li>
+</ul>
+</article>
+</div>
+            </div>
+          </div>
+        
+          <div class="content">
+            <div class="columns">
+              <div class="column is-one-fifth">
+                <h2 id="v3.1.4"><a href="https://dpb587.github.io/openvpn-bosh-release/releases/v3.1.4/">v3.1.4</a></h2>
+              </div>
+              <div class="column">
+                <nav class="level">
+                  <div class="level-left">
+                    
+                      <div class="level-item">
+                        <p class="subtitle is-5">
+                          <strong><time datetime="2017-05-19T06:36:16Z" title="2017-05-19T06:36:16Z">May 19, 2017</strong></time>
+                        </p>
+                      </div>
+                    
+                    
+                  </div>
+                </nav><article class="content"><ul>
+<li>new, optional <code>openvpn</code> configuration properties: <code>tls_version_min</code>, <code>tls_cipher</code></li>
+<li>upgrade: openvpn/2.4.2</li>
+</ul>
+</article>
+</div>
+            </div>
+          </div>
+        
+          <div class="content">
+            <div class="columns">
+              <div class="column is-one-fifth">
+                <h2 id="v3.1.3"><a href="https://dpb587.github.io/openvpn-bosh-release/releases/v3.1.3/">v3.1.3</a></h2>
+              </div>
+              <div class="column">
+                <nav class="level">
+                  <div class="level-left">
+                    
+                      <div class="level-item">
+                        <p class="subtitle is-5">
+                          <strong><time datetime="2017-04-17T00:16:03Z" title="2017-04-17T00:16:03Z">April 17, 2017</strong></time>
+                        </p>
+                      </div>
+                    
+                    
+                  </div>
+                </nav><article class="content"><ul>
+<li>openvpn status log now lives at <code>/var/vcap/sys/run/openvpn/status</code></li>
+<li>upgrade: openvpn now 2.4.1 (was 2.3.14)</li>
+<li>upgrade: openssl now 1.1.0e (was 1.0.2k)</li>
+<li>upgrade: lzo now 2.10 (was 2.09)</li>
+<li>dev: refactor integration tests to execute within container</li>
+</ul>
+</article>
+</div>
+            </div>
+          </div>
+        
+          <div class="content">
+            <div class="columns">
+              <div class="column is-one-fifth">
+                <h2 id="v3.1.2"><a href="https://dpb587.github.io/openvpn-bosh-release/releases/v3.1.2/">v3.1.2</a></h2>
+              </div>
+              <div class="column">
+                <nav class="level">
+                  <div class="level-left">
+                    
+                      <div class="level-item">
+                        <p class="subtitle is-5">
+                          <strong><time datetime="2017-02-16T11:36:21Z" title="2017-02-16T11:36:21Z">February 16, 2017</strong></time>
+                        </p>
+                      </div>
+                    
+                    
+                  </div>
+                </nav><article class="content"><ul>
+<li>upgrade: openssl now 1.0.2k (was 1.0.2j)</li>
+</ul>
+</article>
+</div>
+            </div>
+          </div>
+        
+          <div class="content">
+            <div class="columns">
+              <div class="column is-one-fifth">
+                <h2 id="v3.1.1"><a href="https://dpb587.github.io/openvpn-bosh-release/releases/v3.1.1/">v3.1.1</a></h2>
+              </div>
+              <div class="column">
+                <nav class="level">
+                  <div class="level-left">
+                    
+                      <div class="level-item">
+                        <p class="subtitle is-5">
+                          <strong><time datetime="2016-12-11T23:34:29Z" title="2016-12-11T23:34:29Z">December 11, 2016</strong></time>
+                        </p>
+                      </div>
+                    
+                    
+                  </div>
+                </nav><article class="content"><ul>
+<li>upgrade: openvpn now 2.3.14 (was 2.3.13)</li>
+</ul>
+</article>
+</div>
+            </div>
+          </div>
+        
+          <div class="content">
+            <div class="columns">
+              <div class="column is-one-fifth">
+                <h2 id="v3.1.0"><a href="https://dpb587.github.io/openvpn-bosh-release/releases/v3.1.0/">v3.1.0</a></h2>
+              </div>
+              <div class="column">
+                <nav class="level">
+                  <div class="level-left">
+                    
+                      <div class="level-item">
+                        <p class="subtitle is-5">
+                          <strong><time datetime="2016-12-01T09:09:35Z" title="2016-12-01T09:09:35Z">December 1, 2016</strong></time>
+                        </p>
+                      </div>
+                    
+                    
+                  </div>
+                </nav><article class="content"><ul>
+<li>automate signature and checksum verification of blobs</li>
+<li>bug fix: make <code>openvpn.crl_pem</code> actually be optional</li>
+<li>upgrade: openvpn now 2.3.13 (was 2.3.12)</li>
+</ul>
+</article>
+</div>
+            </div>
+          </div>
+        
+          <div class="content">
+            <div class="columns">
+              <div class="column is-one-fifth">
+                <h2 id="v3.0.0"><a href="https://dpb587.github.io/openvpn-bosh-release/releases/v3.0.0/">v3.0.0</a></h2>
+              </div>
+              <div class="column">
+                <nav class="level">
+                  <div class="level-left">
+                    
+                      <div class="level-item">
+                        <p class="subtitle is-5">
+                          <strong><time datetime="2016-11-30T08:25:24Z" title="2016-11-30T08:25:24Z">November 30, 2016</strong></time>
+                        </p>
+                      </div>
+                    
+                    
+                  </div>
+                </nav><article class="content"><ul>
+<li>make <code>openvpn.crl_pem</code> optional</li>
+<li>support configuring <code>openvpn.cipher</code> and <code>openvpn.keysize</code> (default key size is now 256; existing client connection profiles may need to be updated before they can reconnect)</li>
+<li>upgrade: openssl now 1.0.2j (was 1.0.2h)</li>
+</ul>
+</article>
+</div>
+            </div>
+          </div>
+        
+          <div class="content">
+            <div class="columns">
+              <div class="column is-one-fifth">
+                <h2 id="v2.1.3"><a href="https://dpb587.github.io/openvpn-bosh-release/releases/v2.1.3/">v2.1.3</a></h2>
+              </div>
+              <div class="column">
+                <nav class="level">
+                  <div class="level-left">
+                    
+                      <div class="level-item">
+                        <p class="subtitle is-5">
+                          <strong><time datetime="2016-09-15T02:44:28Z" title="2016-09-15T02:44:28Z">September 15, 2016</strong></time>
+                        </p>
+                      </div>
+                    
+                    
+                  </div>
+                </nav><article class="content"><p>Upgrades:</p>
+
+<ul>
+<li>openvpn now 2.3.12 (was 2.3.11)</li>
+</ul>
+</article>
+</div>
+            </div>
+          </div>
+        
+          <div class="content">
+            <div class="columns">
+              <div class="column is-one-fifth">
+                <h2 id="v2.1.2"><a href="https://dpb587.github.io/openvpn-bosh-release/releases/v2.1.2/">v2.1.2</a></h2>
+              </div>
+              <div class="column">
+                <nav class="level">
+                  <div class="level-left">
+                    
+                      <div class="level-item">
+                        <p class="subtitle is-5">
+                          <strong><time datetime="2016-05-14T11:05:12Z" title="2016-05-14T11:05:12Z">May 14, 2016</strong></time>
+                        </p>
+                      </div>
+                    
+                    
+                  </div>
+                </nav><article class="content"><p>Upgrades:</p>
+
+<ul>
+<li>openssl now 1.0.2h (was 1.0.2g)</li>
+<li>openvpn now 2.3.11 (was 2.3.10)</li>
+</ul>
+</article>
+</div>
+            </div>
+          </div>
+        
+          <div class="content">
+            <div class="columns">
+              <div class="column is-one-fifth">
+                <h2 id="v2.1.0"><a href="https://dpb587.github.io/openvpn-bosh-release/releases/v2.1.0/">v2.1.0</a></h2>
+              </div>
+              <div class="column">
+                <nav class="level">
+                  <div class="level-left">
+                    
+                      <div class="level-item">
+                        <p class="subtitle is-5">
+                          <strong><time datetime="2016-05-03T07:38:26Z" title="2016-05-03T07:38:26Z">May 3, 2016</strong></time>
+                        </p>
+                      </div>
+                    
+                    
+                  </div>
+                </nav><article class="content"><p>Upgrades:</p>
+
+<ul>
+<li>openssl now 1.0.2g (was 1.0.2e)</li>
+<li>openvpn now 2.3.10 (was 2.3.8)</li>
+</ul>
+</article>
+</div>
+            </div>
+          </div>
+        
+          <div class="content">
+            <div class="columns">
+              <div class="column is-one-fifth">
+                <h2 id="v2.0.1"><a href="https://dpb587.github.io/openvpn-bosh-release/releases/v2.0.1/">v2.0.1</a></h2>
+              </div>
+              <div class="column">
+                <nav class="level">
+                  <div class="level-left">
+                    
+                      <div class="level-item">
+                        <p class="subtitle is-5">
+                          <strong><time datetime="2016-05-03T06:57:08Z" title="2016-05-03T06:57:08Z">May 3, 2016</strong></time>
+                        </p>
+                      </div>
+                    
+                    
+                  </div>
+                </nav><article class="content"><p>Bug fix to correctly use packaged openssl</p>
+</article>
+</div>
+            </div>
+          </div>
+        
+          <div class="content">
+            <div class="columns">
+              <div class="column is-one-fifth">
+                <h2 id="v2"><a href="https://dpb587.github.io/openvpn-bosh-release/releases/v2/">v2</a></h2>
+              </div>
+              <div class="column">
+                <nav class="level">
+                  <div class="level-left">
+                    
+                      <div class="level-item">
+                        <p class="subtitle is-5">
+                          <strong><time datetime="2015-12-09T21:39:47-08:00" title="2015-12-09T21:39:47-08:00">December 9, 2015</strong></time>
+                        </p>
+                      </div>
+                    
+                    
+                  </div>
+                </nav><article class="content"><p>Upgrades:</p>
+
+<ul>
+<li>openssl now 1.0.2e (was 1.0.1m)</li>
+<li>openvpn now 2.3.8 (was 2.3.6)</li>
+</ul>
+</article>
+</div>
+            </div>
+          </div>
+        
+          <div class="content">
+            <div class="columns">
+              <div class="column is-one-fifth">
+                <h2 id="v1"><a href="https://dpb587.github.io/openvpn-bosh-release/releases/v1/">v1</a></h2>
+              </div>
+              <div class="column">
+                <nav class="level">
+                  <div class="level-left">
+                    
+                      <div class="level-item">
+                        <p class="subtitle is-5">
+                          <strong><time datetime="2015-05-25T17:53:36-06:00" title="2015-05-25T17:53:36-06:00">May 25, 2015</strong></time>
+                        </p>
+                      </div>
+                    
+                    
+                  </div>
+                </nav><article class="content"><p>Initial release for deploying an OpenVPN server/client.</p>
+</article>
+</div>
+            </div>
+          </div>
+        
+      </article>
+    </div>
+    
+      <div class="column table-of-contents is-hidden-mobile">
+        <div class="content is-size-7">
+          <nav id="TableOfContents">
+            <ul>
+              <li>
+                <a href="#releases">Releases</a>
+                <ul>
+                  
+                    <li><a href="#v5.7.0">v5.7.0</a></li>
+                  
+                    <li><a href="#v5.6.0">v5.6.0</a></li>
+                  
+                    <li><a href="#v5.5.0">v5.5.0</a></li>
+                  
+                    <li><a href="#v5.4.0">v5.4.0</a></li>
+                  
+                    <li><a href="#v5.3.0">v5.3.0</a></li>
+                  
+                    <li><a href="#v5.2.0">v5.2.0</a></li>
+                  
+                    <li><a href="#v5.1.0">v5.1.0</a></li>
+                  
+                    <li><a href="#v5.0.0">v5.0.0</a></li>
+                  
+                    <li><a href="#v4.2.1">v4.2.1</a></li>
+                  
+                    <li><a href="#v4.2.0">v4.2.0</a></li>
+                  
+                    <li><a href="#v4.1.0">v4.1.0</a></li>
+                  
+                    <li><a href="#v4.0.0">v4.0.0</a></li>
+                  
+                    <li><a href="#v3.2.2">v3.2.2</a></li>
+                  
+                    <li><a href="#v3.2.1">v3.2.1</a></li>
+                  
+                    <li><a href="#v3.2.0">v3.2.0</a></li>
+                  
+                    <li><a href="#v3.1.4">v3.1.4</a></li>
+                  
+                    <li><a href="#v3.1.3">v3.1.3</a></li>
+                  
+                    <li><a href="#v3.1.2">v3.1.2</a></li>
+                  
+                    <li><a href="#v3.1.1">v3.1.1</a></li>
+                  
+                    <li><a href="#v3.1.0">v3.1.0</a></li>
+                  
+                    <li><a href="#v3.0.0">v3.0.0</a></li>
+                  
+                    <li><a href="#v2.1.3">v2.1.3</a></li>
+                  
+                    <li><a href="#v2.1.2">v2.1.2</a></li>
+                  
+                    <li><a href="#v2.1.0">v2.1.0</a></li>
+                  
+                    <li><a href="#v2.0.1">v2.0.1</a></li>
+                  
+                    <li><a href="#v2">v2</a></li>
+                  
+                    <li><a href="#v1">v1</a></li>
+                  
+                </ul>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    
+  </div>
+
+        </div>
+      </div>
+    </section><footer class="footer">
+  <div class="content has-text-centered">
+    
+      <a href="https://github.com/dpb587/openvpn-bosh-release">OpenVPN BOSH Release</a> by <a href="https://dpb587.me/">Danny Berger</a>.
+    
+  </div>
+</footer>
+</body>
+</html>
