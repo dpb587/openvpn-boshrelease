@@ -1,5 +1,15 @@
+shared:
+  release_artifacts: &release_artifacts
+    mirror_files:
+    - destination: s3://s3-external-1.amazonaws.com/dpb587-bosh-release-openvpn-us-east-1/artifacts/release/{{.SHA1}}
+      env:
+        AWS_ACCESS_KEY_ID: ((ci_access_key))
+        AWS_SECRET_ACCESS_KEY: ((ci_secret_key))
+    options:
+      private_key: ((ci_deploy_ssh_key))
 groups:
 - jobs:
+  - build-docs
   - create-dev-release
   - test-integration-ubuntu-trusty
   - test-integration-ubuntu-xenial
@@ -13,6 +23,24 @@ groups:
   - bump-patch
   name: ci-state
 jobs:
+- name: build-docs
+  serial: true
+  plan:
+  - aggregate:
+    - get: repo
+      trigger: true
+    - get: artifacts
+      resource: repo-artifacts
+      trigger: true
+    - get: hugo-site
+      resource: bosh-release-site
+      trigger: true
+  - task: build-docs
+    file: repo/ci/tasks/build-docs/task.yml
+  - put: repo-gh-pages
+    params:
+      repository: public
+      force: true
 - name: create-dev-release
   plan:
   - get: repo
@@ -189,6 +217,22 @@ resources:
     branch: master
     private_key: ((ci_deploy_ssh_key))
     uri: git@github.com:dpb587/openvpn-bosh-release.git
+- name: "repo-artifacts"
+  type: "git"
+  source:
+    uri: git@github.com:dpb587/openvpn-bosh-release.git
+    branch: artifacts
+    private_key: ((ci_deploy_ssh_key))
+- name: "repo-gh-pages"
+  type: "git"
+  source:
+    uri: git@github.com:dpb587/openvpn-bosh-release.git
+    branch: gh-pages
+    private_key: ((ci_deploy_ssh_key))
+- name: "bosh-release-site"
+  type: "git"
+  source:
+    uri: https://github.com/dpb587/bosh-release-site.git
 - name: version
   type: semver
   source:
@@ -267,12 +311,3 @@ resource_types:
   type: docker-image
   source:
     repository: dpb587/metalink-repository-resource
-shared:
-  release_artifacts: &release_artifacts
-    mirror_files:
-    - destination: s3://s3-external-1.amazonaws.com/dpb587-bosh-release-openvpn-us-east-1/artifacts/release/{{.SHA1}}
-      env:
-        AWS_ACCESS_KEY_ID: ((ci_access_key))
-        AWS_SECRET_ACCESS_KEY: ((ci_secret_key))
-    options:
-      private_key: ((ci_deploy_ssh_key))
