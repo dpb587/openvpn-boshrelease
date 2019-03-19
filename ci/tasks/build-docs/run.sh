@@ -7,6 +7,12 @@ reporoot=$task_dir/repo
 artifactroot=$task_dir/artifacts/release/stable
 buildroot=$task_dir/hugo-site/build
 
+cd $reporoot
+
+# pull history to include releases which came from other branches
+git remote add complete $( git remote get-url origin | sed 's#git@github.com:#https://github.com/#' )
+git fetch complete
+
 cd $task_dir/hugo-site
 
 ./bin/generate-data.sh \
