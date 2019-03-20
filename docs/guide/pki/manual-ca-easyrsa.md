@@ -1,11 +1,9 @@
-# Creating a PKI
-
-OpenVPN uses a [PKI](http://en.wikipedia.org/wiki/Public_key_infrastructure) for authentication.
+# Manual CA with easyrsa
 
 If you need help creating one, you might find the [easyrsa](https://github.com/OpenVPN/easy-rsa/) package helpful. Use the following to manage an easyrsa-based PKI for OpenVPN...
 
 
-## Setup
+## Initial Setup
 
 First download the `easyrsa` package.
 
@@ -90,12 +88,45 @@ Once a certificate is signed, you can provide it back to the requester.
     $ cat "pki/issued/$CN.crt"
 
 
-## Deployment Configuration
+# Server Configuration
 
-Once you have a PKI setup and a server key-pair configured, you can use the file data for the ``openvpn`` job properties...
+Once you have a PKI setup and a server key-pair configured, you can use the file data for the `openvpn` job properties.
 
  * `tls_key_pair.ca` is `./pki/ca.crt`
  * `tls_key_pair.certificate` is `./pki/issued/main-server.crt`
  * `tls_key_pair.private_key` is `./pki/private/main-server.key`
  * `tls_crl` is `./pki/crl.pem`
  * `dh_pem` is `./pki/dh.pem`
+
+
+# Client Configuration
+
+
+Once a client has had their key-pair signed, they will want to include it in the base OpenVPN profile configuration:
+
+ * `<key>` is the client private key
+ * `<cert>` is the signed certificate
+
+Typically, the base OpenVPN profile configuration should be provided by the OpenVPN server operator. It will look something like the following.
+
+    client
+    dev tun
+    proto tcp
+    remote $OPENVPN_HOST $OPENVPN_PORT
+    comp-lzo
+    resolv-retry infinite
+    nobind
+    persist-key
+    persist-tun
+    mute-replay-warnings
+    remote-cert-tls server
+    verb 3
+    mute 20
+    tls-client
+    <ca>
+    # OpenVPN server CA
+    </ca>
+
+Once the user appends their private key to the profile, they can use file with their [OpenVPN client]({{< relref "../client/end-user-software.md" >}}).
+
+   $ openvpn --config client.ovpn

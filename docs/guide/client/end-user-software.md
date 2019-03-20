@@ -1,6 +1,6 @@
-# Client Software
+# End-User Software
 
-Aside from downloading and building OpenVPN from [source](https://openvpn.net/index.php/open-source/downloads.html), there are a few additional packages you may be interested in.
+Aside from downloading and building OpenVPN from [source](https://openvpn.net/index.php/open-source/downloads.html), there are a few other packages for running a client.
 
 
 ## Linux
