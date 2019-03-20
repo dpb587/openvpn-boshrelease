@@ -9,7 +9,7 @@ Make sure you have several tools installed...
 
  * `bosh` - from [bosh.io](http://bosh.io/docs/cli-v2#install)
  * `ruby` - used by `bosh` to generate server configuration files
- * `openvpn` - for [connecting](../users/profiles.md) from your workstation
+ * `openvpn` - for [connecting]({{< relref "../client/end-user-software.md" >}}) from your workstation
 
 
 ## Configuration
@@ -162,7 +162,7 @@ After the command has completed, there will be an `openvpn-state.json` file - be
 
 ## Client Setup
 
-After the server is running, you can generate an OpenVPN connection profile for [a client](../users/software.md)...
+After the server is running, you can generate an OpenVPN connection profile for [a client]({{< relref "../client/end-user-software.md" >}})...
 
     bosh interpolate --vars-store openvpn-client-creds.yml -l openvpn-creds.yml --path=/profile openvpn-client.yml > openvpn-client.ovpn
 

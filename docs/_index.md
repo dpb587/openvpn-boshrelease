@@ -4,7 +4,8 @@ For running an OpenVPN server or connecting clients to the OpenVPN network.
 
 ---
 
-To learn more
+Learn more or get started from the table of contents.
+
 
 ## Development
 
