@@ -1,0 +1,5 @@
+- path: /instance_groups/name=openvpn/jobs/name=iptables/properties/iptables/nat?
+  type: replace
+  value:
+    POSTROUTING:
+    - -s ((vpn_network))/((vpn_network_mask_bits)) -j MASQUERADE

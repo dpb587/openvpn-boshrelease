@@ -1,0 +1,3 @@
+- path: /instance_groups/name=openvpn/jobs/name=openvpn/properties/extra_config?
+  type: replace
+  value: duplicate-cn

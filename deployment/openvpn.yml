@@ -1,33 +1,27 @@
 ---
 name: openvpn
+
 releases:
-- name: openvpn
-  url: https://s3-external-1.amazonaws.com/dpb587-bosh-release-openvpn-us-east-1/compiled_releases/openvpn/openvpn-4.1.0-on-ubuntu-trusty-stemcell-3468.1-compiled-1.20171026070713.0.tgz
-  sha1: aaf081d1a2637dd47b35f5445b70cc3551edb63a
+- name: "openvpn"
+  version: "5.3.0"
+  url: "https://bosh.io/d/github.com/dpb587/openvpn-bosh-release?v=5.3.0"
+  sha1: "91ce6cba681dcc25f070a3ee0c546efbcaa15d6d"
 - name: os-conf
   version: 11
   url: https://bosh.io/d/github.com/cloudfoundry/os-conf-release?v=11
   sha1: 651f10a765a2900a7f69ea07705f3367bd8041eb
-resource_pools:
-- name: default
-  network: default
-  env:
-    bosh:
-      mbus:
-        cert: ((mbus_cert))
-networks:
-- name: default
-  type: manual
-  subnets:
-  - range: ((lan_network))/((lan_network_mask_bits))
-    gateway: ((lan_gateway))
-    static:
-    - ((lan_ip))
-    dns: [8.8.8.8]
-- name: vip
-  type: vip
-  static_ips:
-  - ((wan_ip))
+
+stemcells:
+- alias: "default"
+  os: "ubuntu-xenial"
+  version: "latest"
+
+update:
+  canaries: 1
+  canary_watch_time: 1000-60000
+  update_watch_time: 1000-60000
+  max_in_flight: 1
+
 instance_groups:
 - name: openvpn
   jobs:
@@ -50,47 +44,13 @@ instance_groups:
     properties: {}
   instances: 1
   stemcell: default
-  resource_pool: default
+  vm_type: t2.nano
+  azs:
+  - z1
   networks:
   - name: default
-    default:
-    - dns
-    - gateway
-    static_ips:
-    - ((lan_ip))
-  - name: vip
-    static_ips:
-    - ((wan_ip))
-update:
-  canaries: 1
-  canary_watch_time: 1000-60000
-  update_watch_time: 1000-60000
-  max_in_flight: 1
-cloud_provider:
-  mbus: https://mbus:((mbus_password))@((wan_ip)):6868
-  cert: ((mbus_cert))
-  properties:
-    agent:
-      mbus: "https://mbus:((mbus_password))@0.0.0.0:6868"
-    blobstore:
-      provider: local
-      path: /var/vcap/micro_bosh/data/cache
+
 variables:
-- name: mbus_password
-  type: password
-- name: mbus_ca
-  type: certificate
-  options:
-    is_ca: true
-    common_name: ca
-- name: mbus_cert
-  type: certificate
-  options:
-    ca: mbus_ca
-    common_name: mbus
-    alternative_names:
-    - ((lan_ip))
-    - ((wan_ip))
 - name: ca
   type: certificate
   options:
@@ -101,5 +61,8 @@ variables:
   options:
     ca: ca
     common_name: openvpn
+    key_usage:
+    - digital_signature
+    - key_encipherment
     extended_key_usage:
     - server_auth
