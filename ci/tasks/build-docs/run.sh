@@ -7,7 +7,13 @@ reporoot=$task_dir/repo
 artifactroot=$task_dir/artifacts/release/stable
 siteroot=$task_dir/hugo-site
 
-cd $siteroot
+cd "$reporoot"
+
+# pull history to include releases which came from other branches
+git remote add complete $( git remote get-url origin | sed 's#git@github.com:#https://github.com/#' )
+git fetch complete
+
+cd "$siteroot"
 
 mkdir -p static/img
 wget -qO static/img/dpb587.jpg https://dpb587.me/images/dpb587-20140313a~256.jpg
@@ -18,6 +24,10 @@ wget -qO static/img/dpb587.jpg https://dpb587.me/images/dpb587-20140313a~256.jpg
 
 mkdir -p content/docs
 cp -rp "$reporoot/docs" content/docs/latest
+
+echo '<script>self.location="{{< relref "/docs/latest/_index.md" >}}"</script>' \
+  | tee content/_index.md \
+  > content/docs/_index.md
 
 ./bin/remap-docs-contribute-links.sh docs/latest docs
 
