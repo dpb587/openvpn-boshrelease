@@ -24,6 +24,8 @@ cp -rp "$reporoot/docs" content/docs/latest
 github=https://github.com/dpb587/openvpn-bosh-release
 cat > config.local.yml <<EOF
 title: openvpn-bosh-release
+baseURL: https://dpb587.github.io/openvpn-bosh-release
+googleAnalytics: UA-37464314-3
 params:
   ThemeBrandIcon: /img/dpb587.jpg
   ThemeNavItems:
