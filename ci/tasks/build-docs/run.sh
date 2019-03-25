@@ -5,49 +5,54 @@ set -eu
 task_dir=$PWD
 reporoot=$task_dir/repo
 artifactroot=$task_dir/artifacts/release/stable
-buildroot=$task_dir/hugo-site/build
+siteroot=$task_dir/hugo-site
 
-cd $reporoot
+cd $siteroot
 
-# pull history to include releases which came from other branches
-git remote add complete $( git remote get-url origin | sed 's#git@github.com:#https://github.com/#' )
-git fetch complete
+mkdir -p static/img
+wget -qO static/img/dpb587.jpg https://dpb587.me/images/dpb587-20140313a~256.jpg
 
-cd $task_dir/hugo-site
+./bin/generate-metalink-artifacts-data.sh "file://$artifactroot"
+./bin/generate-release-content.sh "$reporoot"
+./bin/generate-repo-tags-data.sh "$reporoot"
 
-./bin/generate-data.sh \
-  "$reporoot" \
-  "$artifactroot" \
-  "$buildroot"
+mkdir -p content/docs
+cp -rp "$reporoot/docs" content/docs/latest
 
-./bin/generate-content.sh \
-  "$reporoot" \
-  "$buildroot" \
-  "https://github.com/dpb587/openvpn-bosh-release"
+./bin/remap-docs-contribute-links.sh docs/latest docs
 
-# lightweight migration of older content
+github=https://github.com/dpb587/openvpn-bosh-release
+cat > config.local.yml <<EOF
+title: openvpn-bosh-release
+params:
+  ThemeBrandIcon: /img/dpb587.jpg
+  ThemeNavItems:
+  - title: docs
+    url: /docs/latest/
+  - title: releases
+    url: /releases/
+  - title: github
+    url: "$github"
+  ThemeNavBadges:
+  - title: BOSH
+    color: "#fff"
+    img: /img/cff-bosh.png
+    url: https://bosh.io/
+  RequireContributeLinkMap: true
+  CopyrightNotice: |
+    [OpenVPN BOSH Release]($github) by [Danny Berger](https://dpb587.me/).
+  GitRepo: "$github"
+  GitEditPath: blob/master
+  GitCommitPath: commit
+  boshReleaseName: openvpn
+  boshReleaseVersion: "$( cd content/releases ; ls | grep ^v | sed 's/^v//' | $( which gsort || echo "sort" ) -rV | head -n1 )"
+EOF
 
-find "$buildroot/content" -name '*.md' \
-  | xargs -n1 \
-  -- sed -i -E \
-    -e 's#\[contributing\]\(../CONTRIBUTING.md\)#[contributing](https://github.com/dpb587/openvpn-bosh-release/blob/master/CONTRIBUTING.md)#' \
-    -e 's#\]\(release/README.md\)#](missing-page)#g' \
-    -e 's#\]\(([^:)]+\.md)\)#]({{< relref "\1" >}})#g'
-
-for readme in $( find "$buildroot/content" -name 'README.md' ) ; do
-  [[ ! -e "$( dirname "$readme" )/_index.md" ]] || continue
-  mv "$readme" "$( dirname "$readme" )/_index.md"
-done
-
-# end lightweight migration of older content
-
-./bin/build-site.sh \
-  "$buildroot" \
-  "https://dpb587.github.io/openvpn-bosh-release"
+hugo --config config.yml,config.local.yml
 
 cd $task_dir/public
 
-mv $buildroot/public/* ./
+mv $siteroot/public/* ./
 
 git config --global user.email "${git_user_email:-ci@localhost}"
 git config --global user.name "${git_user_name:-CI Bot}"

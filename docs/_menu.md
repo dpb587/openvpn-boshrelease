@@ -1,8 +1,16 @@
- * Server Operations
-    * [Deployment]({{< relref "/guide/server/deployment.md" >}})
-    * [Advanced Settings]({{< relref "/guide/server/advanced.md" >}})
- * Client Operations
-    * [Deployment]({{< relref "/guide/client/deployment.md" >}})
-    * [End-User Software]({{< relref "/guide/client/end-user-software.md" >}})
- * [PKI Operations]({{< relref "/guide/pki/_index.md" >}})
-    * [Manual CA (easyrsa)]({{< relref "/guide/pki/manual-ca-easyrsa.md" >}})
+* [Overview]({{< relref "./" >}})
+* [Release Practices]({{< relref "./release-practices.md" >}})
+
+Server Operations
+
+* [Deployment]({{< relref "./server/deployment.md" >}})
+* [Advanced Settings]({{< relref "./server/advanced.md" >}})
+* [PKI Operations]({{< relref "./pki/_index.md" >}})
+   * [Manual CA (easyrsa)]({{< relref "./pki/manual-ca-easyrsa.md" >}})
+
+Client Operations
+
+* [Deployment]({{< relref "./client/deployment.md" >}})
+* [End-User Software]({{< relref "./client/end-user-software.md" >}})
+
+{{< release/latest-menu >}}
