@@ -1,0 +1,13 @@
+<metalink xmlns="urn:ietf:params:xml:ns:metalink">
+  <file name="openvpn-5.3.1-dev.20190325T031836Z.commit.1d5c30a.tgz">
+    <hash type="sha-512">927b47d912f1a7cf855c983d6cf4c6e94dc310679f033be45c7b0c3de641edcde3134085e7aa7f3f1d73a862b7a3969a21f73569af526a132df35c75d28fa99d</hash>
+    <hash type="sha-256">a4c9ff09a437685a4172d8916c737292b80946fd1839836f5ee76e0bbfcc6fab</hash>
+    <hash type="sha-1">4024a5507c1a2f286d8a1a0ae13938289b68f52b</hash>
+    <hash type="md5">89a4d47ffa64dcdf0333c5311c64ce06</hash>
+    <size>10273742</size>
+    <url>https://s3-external-1.amazonaws.com/dpb587-bosh-release-openvpn-us-east-1/artifacts/release/4024a5507c1a2f286d8a1a0ae13938289b68f52b</url>
+    <version>5.3.1-dev.20190325T031836Z.commit.1d5c30a</version>
+  </file>
+  <generator>metalink-repository-resource/0.0.0</generator>
+  <published>2019-03-25T03:19:10.101160211Z</published>
+</metalink>
