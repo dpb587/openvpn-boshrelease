@@ -35,7 +35,7 @@ echo '<script>self.location="{{< relref "/docs/latest/_index.md" >}}"</script>' 
   > /dev/null
 
 ./bin/remap-docs-contribute-links.sh docs/latest docs
-for doc in $( find jobs packages -name "v$latest_version.md" | cut -c1- ); do
+for doc in $( cd content ; find jobs packages -name "v$latest_version.md" | cut -c1- ); do
   echo "$doc: $( dirname "$doc" )/spec" >> data/contributeLinks.yml
 done
 
