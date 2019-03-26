@@ -34,10 +34,21 @@ echo '<script>self.location="{{< relref "/docs/latest/_index.md" >}}"</script>' 
     content/docs/_index.md \
   > /dev/null
 
+#
+# remap where docs can be edited
+#
+
 ./bin/remap-docs-contribute-links.sh docs/latest docs
-for doc in $( cd content ; find jobs packages -name "v$latest_version.md" | cut -c1- ); do
+for doc in $( cd content ; find jobs packages -name "v$latest_version.md" ); do
   echo "$doc: $( dirname "$doc" )/spec" >> data/contributeLinks.yml
 done
+for v in $( cd content ; find releases -mindepth 2 -maxdepth 2 -name _index.md | cut -d/ -f2 | sed 's/^v//' ); do
+  echo "releases/v$v/_index.md: releases/openvpn/openvpn-$v.md" >> data/contributeLinks.yml
+done
+
+#
+# amend our hugo configuration
+#
 
 github=https://github.com/dpb587/openvpn-bosh-release
 cat > config.local.yml <<EOF
