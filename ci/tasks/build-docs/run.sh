@@ -22,6 +22,8 @@ wget -qO static/img/dpb587.jpg https://dpb587.me/images/dpb587-20140313a~256.jpg
 ./bin/generate-release-content.sh "$reporoot"
 ./bin/generate-repo-tags-data.sh "$reporoot"
 
+latest_version=$( cd content/releases ; ls | grep ^v | sed 's/^v//' | $( which gsort || echo "sort" ) -rV | head -n1 )
+
 mkdir -p content/docs
 cp -rp "$reporoot/docs" content/docs/latest
 mv content/docs/latest/internal/releases/* content/releases/
@@ -33,6 +35,9 @@ echo '<script>self.location="{{< relref "/docs/latest/_index.md" >}}"</script>' 
   > /dev/null
 
 ./bin/remap-docs-contribute-links.sh docs/latest docs
+for doc in $( find jobs packages -name "v$latest_version.md" | cut -c1- ); do
+  echo "$doc: $( dirname "$doc" )/spec" >> data/contributeLinks.yml
+done
 
 github=https://github.com/dpb587/openvpn-bosh-release
 cat > config.local.yml <<EOF
@@ -60,7 +65,7 @@ params:
   GitEditPath: blob/master
   GitCommitPath: commit
   boshReleaseName: openvpn
-  boshReleaseVersion: "$( cd content/releases ; ls | grep ^v | sed 's/^v//' | $( which gsort || echo "sort" ) -rV | head -n1 )"
+  boshReleaseVersion: "$latest_version"
 EOF
 
 hugo --config config.yml,config.local.yml
