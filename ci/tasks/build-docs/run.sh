@@ -24,10 +24,13 @@ wget -qO static/img/dpb587.jpg https://dpb587.me/images/dpb587-20140313a~256.jpg
 
 mkdir -p content/docs
 cp -rp "$reporoot/docs" content/docs/latest
+mv content/docs/latest/internal/releases/* content/releases/
 
 echo '<script>self.location="{{< relref "/docs/latest/_index.md" >}}"</script>' \
-  | tee content/_index.md \
-  > content/docs/_index.md
+  | tee \
+    content/_index.md \
+    content/docs/_index.md \
+  > /dev/null
 
 ./bin/remap-docs-contribute-links.sh docs/latest docs
 

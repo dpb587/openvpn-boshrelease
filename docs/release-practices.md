@@ -30,3 +30,11 @@ A forward-fixing versioning policy is followed. In general, fixes will not be ba
 
 
 ## Channels
+
+When referencing this release, you should typically follow the [`stable` channel](https://github.com/dpb587/openvpn-bosh-release/tree/artifacts/release/stable) which contains the official final release tarballs. Alternatively, you can find tarballs of this release on [bosh.io](https://bosh.io/releases/github.com/dpb587/openvpn-bosh-release?all=1).
+
+If you prefer using development releases with potential bugs, the following channels are also available (from later to earlier in the testing process):
+
+ * [`rc`](https://github.com/dpb587/openvpn-bosh-release/tree/artifacts/release/rc) -- testing in external environments has completed successfully
+ * [`beta`](https://github.com/dpb587/openvpn-bosh-release/tree/artifacts/release/beta) -- testing within the scope of the repository's CI has completed successfully
+ * [`alpha`](https://github.com/dpb587/openvpn-bosh-release/tree/artifacts/release/alpha) -- development builds without any completed, successful testing
