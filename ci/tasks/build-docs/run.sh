@@ -6,6 +6,7 @@ task_dir=$PWD
 reporoot=$task_dir/repo
 artifactroot=$task_dir/artifacts/release/stable
 siteroot=$task_dir/hugo-site
+publicroot=$task_dir/public
 
 cd "$reporoot"
 
@@ -15,14 +16,11 @@ git fetch complete
 
 cd "$siteroot"
 
-mkdir -p static/img
-wget -qO static/img/dpb587.jpg https://dpb587.me/images/dpb587-20140313a~256.jpg
-
 ./bin/generate-metalink-artifacts-data.sh "file://$artifactroot"
 ./bin/generate-release-content.sh "$reporoot"
 ./bin/generate-repo-tags-data.sh "$reporoot"
 
-latest_version=$( cd content/releases ; ls | grep ^v | sed 's/^v//' | $( which gsort || echo "sort" ) -rV | head -n1 )
+latest_version=$( grep '^  ' "$siteroot/data/repo/tags.yml" | awk '{ print $1 }' | sed -e 's/^v//' -e 's/:$//' | sort -rV | head -n1 )
 
 mkdir -p content/docs
 cp -rp "$reporoot/docs" content/docs/latest
@@ -46,8 +44,11 @@ for v in $( cd content ; find releases -mindepth 2 -maxdepth 2 -name _index.md |
   echo "releases/v$v/_index.md: releases/openvpn/openvpn-$v.md" >> data/contributeLinks.yml
 done
 
+mkdir -p static/img
+wget -qO static/img/dpb587.jpg https://dpb587.me/images/dpb587-20140313a~256.jpg
+
 #
-# amend our hugo configuration
+# render
 #
 
 github=https://github.com/dpb587/openvpn-bosh-release
@@ -55,8 +56,16 @@ cat > config.local.yml <<EOF
 title: openvpn-bosh-release
 baseURL: https://dpb587.github.io/openvpn-bosh-release
 googleAnalytics: UA-37464314-3
+theme:
+- balmy-bosh-release
+- balmy
 params:
   ThemeBrandIcon: /img/dpb587.jpg
+  ThemeNavBadges:
+  - title: BOSH
+    color: "#fff"
+    img: /img/cff-bosh.png
+    url: https://bosh.io/
   ThemeNavItems:
   - title: docs
     url: /docs/latest/
@@ -64,11 +73,6 @@ params:
     url: /releases/
   - title: github
     url: "$github"
-  ThemeNavBadges:
-  - title: BOSH
-    color: "#fff"
-    img: /img/cff-bosh.png
-    url: https://bosh.io/
   RequireContributeLinkMap: true
   CopyrightNotice: |
     [OpenVPN BOSH Release]($github) by [Danny Berger](https://dpb587.me/).
@@ -76,17 +80,11 @@ params:
   GitEditPath: blob/master
   GitCommitPath: commit
   boshReleaseName: openvpn
-  boshReleaseVersion: "$latest_version"
+  releaseVersionLatest: "$latest_version"
 EOF
 
-hugo --config config.yml,config.local.yml
+hugo \
+  --config="config.yml,config.local.yml" \
+  --destination="$publicroot"
 
-cd $task_dir/public
-
-mv $siteroot/public/* ./
-
-git config --global user.email "${git_user_email:-ci@localhost}"
-git config --global user.name "${git_user_name:-CI Bot}"
-git init
-git add .
-git commit -m 'build docs'
+./bin/git-commit.sh "$publicroot"

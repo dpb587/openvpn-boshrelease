@@ -2,7 +2,7 @@ platform: linux
 image_resource:
   type: docker-image
   source:
-    repository: dpb587/bosh-release-docs
+    repository: dpb587/hugo-balmy-site
     tag: latest
 inputs:
 - name: repo

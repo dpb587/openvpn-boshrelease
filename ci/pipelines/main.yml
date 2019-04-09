@@ -33,7 +33,6 @@ jobs:
       resource: repo-artifacts
       trigger: true
     - get: hugo-site
-      resource: bosh-release-site
       trigger: true
   - task: build-docs
     file: repo/ci/tasks/build-docs/task.yml
@@ -229,10 +228,10 @@ resources:
     uri: git@github.com:dpb587/openvpn-bosh-release.git
     branch: gh-pages
     private_key: ((ci_deploy_ssh_key))
-- name: "bosh-release-site"
+- name: "hugo-site"
   type: "git"
   source:
-    uri: https://github.com/dpb587/bosh-release-site.git
+    uri: https://github.com/dpb587/hugo-balmy-site.git
 - name: version
   type: semver
   source:
