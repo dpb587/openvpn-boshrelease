@@ -21,7 +21,6 @@ remote-cert-tls server
 remote <%= remote.address %> <%= server.p('port') %> <%= server.p('protocol') %>
 <% end %>
 cipher <%= server.p('cipher') %>
-keysize <%= server.p('keysize') %>
 tls-client
 <% server.if_p('tls_cipher') do | v | %>
 tls-cipher <%= v %>

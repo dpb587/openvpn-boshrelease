@@ -13,7 +13,6 @@ profile: |
   mute 20
   tls-client
   cipher AES-256-CBC
-  keysize 256
   <ca>
   ((ca.ca))
   </ca>

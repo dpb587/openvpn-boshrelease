@@ -16,7 +16,6 @@ provides:
   - protocol
   - port
   - cipher
-  - keysize
   - tls_version_min
   - tls_cipher
   - tls_crypt
@@ -80,11 +79,6 @@ properties:
   cipher:
     description: "Cipher for encrypting packets"
     default: "AES-256-CBC"
-  keysize:
-    description: "Size of cipher key in bits (deprecated)"
-    deprecated: https://github.com/OpenVPN/openvpn/commit/ad178f01444d61e48fca83c4f0bc5d82270cee87
-    default: 256
-    type: "integer"
   tls_version_min:
     description: "The minimum TLS version accepted from peers"
     default: "1.2"

@@ -3,7 +3,6 @@ tmp-dir /var/vcap/data/tmp/openvpn
 writepid /var/vcap/sys/run/openvpn/openvpn.pid
 client-config-dir /var/vcap/data/openvpn-ccd
 cipher <%= p('cipher') %>
-keysize <%= p('keysize') %>
 <% if_p('tls_cipher') do | v | %>
 tls-cipher <%= v %>
 <% end %>

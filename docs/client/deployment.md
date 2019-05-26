@@ -38,7 +38,6 @@ instance_groups:
           protocol: tcp
           port: 1194
           cipher: AES-256-CBC
-          keysize: 256
           tls_server:
             ca: |
               -----BEGIN CERTIFICATE-----

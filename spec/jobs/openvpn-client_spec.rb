@@ -30,7 +30,6 @@ describe 'openvpn-client' do
           'port' => '1234',
           'protocol' => 'udp',
           'cipher' => 'AES-256-CBC',
-          'keysize' => 256,
           'tls_server' => {
             'ca' => 'fake-server-ca',
           },
@@ -73,7 +72,6 @@ describe 'openvpn-client' do
           "remote",
           "remote",
           "cipher",
-          "keysize",
           "tls-client",
           "<ca>",
           "fake-server-ca",
