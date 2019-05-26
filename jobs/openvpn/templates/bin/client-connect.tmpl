@@ -1,0 +1,26 @@
+#!/bin/bash
+
+set -eu
+
+profile="$1"
+
+{{ if eq .Properties.compress "auto" }}
+  if [[ "${IV_LZ4v2:-}" == "1" ]]; then
+    (
+      echo 'compress lz4-v2'
+      echo 'push "compress lz4-v2"'
+    ) >> "$profile"
+  elif [[ "${IV_LZ4:-}" == "1" ]]; then
+    (
+      echo 'compress lz4'
+      echo 'push "compress lz4"'
+    ) >> "$profile"
+  elif [[ "${IV_VER:-}" =~ ^2\.3\. ]]; then
+    true # no compression
+  else
+    (
+      echo "compress lzo"
+      echo 'push "compress lzo"'
+    ) >> "$profile"
+  fi
+{{ end }}

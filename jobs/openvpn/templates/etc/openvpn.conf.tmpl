@@ -1,0 +1,79 @@
+mode server
+tmp-dir /var/vcap/data/tmp/openvpn
+writepid /var/vcap/sys/run/openvpn/openvpn.pid
+client-config-dir /var/vcap/data/openvpn-ccd
+cipher {{ .Property "cipher" }}
+keysize {{ .Property "keysize" }}
+{{ with .Property "tls_cipher" }}
+tls-cipher {{ . }}
+{{ end }}
+tls-version-min {{ .Property "tls_version_min" }}
+{{ if eq ( .Property "compress" ) "auto" }}
+client-connect /var/vcap/jobs/openvpn/bin/client-connect
+script-security 2
+{{ end }}
+proto {{ .Property "protocol" }}
+port {{ .Property "port" }}
+{{ with .Property "compress" }}{{ if ne . "auto" }}
+compress {{ . }}
+push "compress {{ > }}"
+{{ end }}
+group nogroup
+user nobody
+status /var/vcap/sys/run/openvpn/status
+dev {{ .Property "device" }}
+local {{ .Property "local" }}
+server {{ .Property "server" }}
+{{ range .Property "push_routes" }}
+push "route {{ . }}"
+{{ end }}
+{{ range .Property "push_dns" }}
+# ensure we can route to the DNS server over the connection
+push "route {{ . }} 255.255.255.255"
+push "dhcp-option DNS {{ . }}"
+{{ end }}
+{{ range .Property "push_dns_search_domains" }}
+push "dhcp-option DOMAIN {{ . }}"
+push "dhcp-option DOMAIN-SEARCH {{ . }}"
+{{ end }}
+{{ range .Property "routes" }}
+route {{ . }}
+{{ end }}
+push "ping 15"
+push "ping-restart 60"
+keepalive 15 60
+topology subnet
+persist-key
+persist-tun
+{{ with .Property "extra_config" }}{{ . }}{{ end }}
+{{ range .Property "extra_configs" }}
+{{ . }}
+{{ end }}
+
+<ca>
+{{ index ( .Property "tls_server" ) "ca" }}
+</ca>
+
+{{ with .Property "tls_crypt" }}
+<tls-crypt>
+{{ . }}
+</tls-crypt>
+{{ end }}
+
+<cert>
+{{ index ( .Property "tls_server" ) "certificate" }}
+</cert>
+
+<key>
+{{ index ( .Property "tls_server" ) "private_key" }}
+</key>
+
+{{ with .Property "tls_crl" }}
+<crl-verify>
+{{ . }}
+</crl-verify>
+{{ end }}
+
+<dh>
+{{ .Property "dh_pem" }}
+</dh>

@@ -4,9 +4,14 @@ description: |
   The `openvpn` job provides an OpenVPN server for clients to connect to.
 packages:
 - "openvpn"
+gotemplates:
+  bin/write-ccd.tmpl: "bin/write-ccd"
+  bin/client-connect.tmpl: "bin/client-connect"
+  bin/control: "bin/control"
+  etc/openvpn.conf.tmpl: "etc/openvpn.conf"
 templates:
   bin/write-ccd.erb: "bin/write-ccd"
-  bin/client-connect: "bin/client-connect"
+  bin/client-connect.erb: "bin/client-connect"
   bin/control: "bin/control"
   etc/openvpn.conf.erb: "etc/openvpn.conf"
 provides:

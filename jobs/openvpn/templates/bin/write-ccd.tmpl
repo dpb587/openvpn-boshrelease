@@ -1,0 +1,15 @@
+#!/bin/bash
+
+[ ! -d /var/vcap/data/openvpn-ccd ] || rm -fr /var/vcap/data/openvpn-ccd
+
+mkdir /var/vcap/data/openvpn-ccd
+chmod 755 /var/vcap/data/openvpn-ccd
+
+cd /var/vcap/data/openvpn-ccd
+
+{{ range .Properties.ccd }}
+cat > "{{ index . 0 }}" << EOF
+{{ index . 1 }}
+EOF
+chmod 644 "{{ index . 0 }}"
+{{ end }}
