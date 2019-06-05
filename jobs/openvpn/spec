@@ -76,7 +76,7 @@ properties:
     - auto
     - lzo
     - lz4
-    - lz4-2
+    - lz4-v2
   cipher:
     description: "Cipher for encrypting packets"
     default: "AES-256-CBC"
