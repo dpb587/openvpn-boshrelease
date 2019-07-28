@@ -1,10 +1,10 @@
 <metalink xmlns="urn:ietf:params:xml:ns:metalink">
   <file name="openvpn-5.1.0-on-ubuntu-trusty-stemcell-3586.79.tgz">
-    <hash type="sha-512">d8a483582423df930ef1867fe91c1175a47e1432058a751a7b122b7e2f9e96837544a55fc4a3af979317a008fdd81546ab118c1c6e0a0813e3290cbf582760bb</hash>
-    <hash type="sha-256">78e6219c19af66ac34aa5da1ea489ee078202a597307a48815cb5687a9d305db</hash>
-    <hash type="sha-1">ed143830127ed78969333c1940fb96241a8f63ab</hash>
-    <hash type="md5">b37c4191795b958982b180db24744356</hash>
-    <size>5905346</size>
+    <hash type="sha-512">fd7c81046f65265fdb051f76c9d30f7677b6287c152b14835d1c2d7aaf6a942c3d3415752ad4e964ceb9ae7f8741b2403a70fb722834fe4fbf1b8f60b0df618a</hash>
+    <hash type="sha-256">89e9e3af06ef44537d42ff45313112c0597baf4deff623df519eec0fa4c188e7</hash>
+    <hash type="sha-1">01ff61108d277478400f53a26424193398a6f7ef</hash>
+    <hash type="md5">d158b7ab482c9fd29e2594766ed1c29c</hash>
+    <size>5903328</size>
     <url>https://s3-external-1.amazonaws.com/dpb587-bosh-release-openvpn-us-east-1/compiled_releases/openvpn/openvpn-5.1.0-on-ubuntu-trusty-stemcell-3586.79.tgz</url>
     <version>5.1.0</version>
   </file>
