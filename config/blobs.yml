@@ -2,10 +2,10 @@ lzo/lzo-2.10.tar.gz:
   size: 600622
   object_id: 719b2aa3-eace-413d-6b6d-e87e80b7c914
   sha: 4924676a9bae5db58ef129dc1cebce3baa3c4b5d
-openssl/openssl-1.1.1c.tar.gz:
-  size: 8864262
-  object_id: 5b5accd6-0259-467b-4559-5e63cb9bb8f1
-  sha: 71b830a077276cbeccc994369538617a21bee808
+openssl/openssl-1.1.1d.tar.gz:
+  size: 8845861
+  object_id: fc178927-e63b-4b74-6631-614d48298ca8
+  sha: 056057782325134b76d1931c48f2c7e6595d7ef4
 openvpn/openvpn-2.4.7.tar.gz:
   size: 1457784
   object_id: 23f274ce-b53e-455d-4af0-97d247dc2ca5
