@@ -45,7 +45,7 @@ for v in $( cd content ; find releases -mindepth 2 -maxdepth 2 -name _index.md |
 done
 
 mkdir -p static/img
-wget -qO static/img/dpb587.jpg https://dpb587.me/images/dpb587-20140313a~256.jpg
+wget -qO static/img/dpb587.jpg https://dpb587.me/static/img/dpb587-20140313a~256.jpg
 
 #
 # render
