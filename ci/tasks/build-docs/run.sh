@@ -44,9 +44,6 @@ for v in $( cd content ; find releases -mindepth 2 -maxdepth 2 -name _index.md |
   echo "releases/v$v/_index.md: releases/openvpn/openvpn-$v.md" >> data/contributeLinks.yml
 done
 
-mkdir -p static/img
-wget -qO static/img/dpb587.jpg https://dpb587.me/static/img/dpb587-20140313a~256.jpg
-
 #
 # render
 #
@@ -60,7 +57,7 @@ theme:
 - balmy-bosh-release
 - balmy
 params:
-  ThemeBrandIcon: /img/dpb587.jpg
+  ThemeBrandIcon: https://github.com/dpb587.png
   ThemeNavBadges:
   - title: BOSH
     color: "#fff"
