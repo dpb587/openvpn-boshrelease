@@ -1,22 +1,22 @@
 <metalink xmlns="urn:ietf:params:xml:ns:metalink">
-  <file name="openvpn-2.4.8.tar.gz">
+  <file name="openvpn-2.4.9.tar.gz">
     <signature mediatype="application/pgp-signature"><![CDATA[-----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCAAdFiEEghddNaqNDoveX0+eXcNRgFrP6sYFAl25hvYACgkQXcNRgFrP
-6sbP8hAApP4y/MYOt9G8stptYy57rxgxbdfwgWai4ZknsSpbvRCkh4GINaYNiQvP
-daozLD0iolNFjdO9/5iZnBdwnhbd94nEksTOuNzJ9a81DOdnGzdSJ0uzl0+SV37d
-Qfa4DHmdhSu8DFY+lr6jf+yRO8VSjXEYAlJZIDbjzgl26glO0dZ6d6/xhM8bq+tZ
-c6mxpob0/Y1E25ZY9xQc2L/6qyeXFVkKbfZmFKnKU5hS9gvJo+97Zu7lqobGR6zl
-ribGTrl17fIzCQ7DIOr2m0QQxAuWc/UkMmSMeElmpj/cYNuKkqfsHFaiBtaDjdAD
-QRbqrWpN6NHs6r5yL+MfA+HJj0GTTyGEL6lw88X05v7tN21zvGIPzzBzuvMifMzl
-ey7b9O4NeWz6LLNV9GKB5CG51f7mdmOXfq1/TaHtDY+NCr+KXk0r+9RuB7RuKfD4
-w/yLI8tpQmzetFdywBp+8POvhedb0nFUISSQcEMp7Ng8suO+QPBlmiKekEsZ8GDg
-9rgAOmTtO9/ivyIRuAgMfgwiP1ONzB3NfoTxebpZ9MrZBgzzclOOikxAiI4rvAdg
-wmGhHaC51C9lZrLIJtT3tN269xHoUdfxSW7aGnqS8B4rwKv2Eo6i7J1Y0eA3mPMN
-f+prJmqLqPmqTYwu117jcPXVtFdHVmtqO1Q+LKUlHF6Y4BUbmZE=
-=mk7k
+iQIzBAABCAAdFiEEMz1GMGz52fH2MNuNlq7ECABda7QFAl6ZkJQACgkQlq7ECABd
+a7Rg3w//fHiokoa7yEBso1TkpcJM6j6R5Ttdb2lbpi8qvFmoRup/4f2aXH4kF9Hw
+d1vyMhfyPAN8LEeO67nkKKXe+QJ/UY1pT3iAQWdFW0HmCa6C8HqzhUpkfVyAJ+zH
+BN6pbXQ72M6HCJd5d4CR7faSDdN33SludMbLXuteYMxHJdOAnioM2UUvoG/kvpac
+tpcK/UngTgGR2448Yh+8g3tMwPZ8zzOR4mSJZIfyQsBC7L4CJTkfYPshOvKVJpow
+Z9viZ8rsFLW21g1zKIVSwQTWDjd5XzJc+jxnutjoc/rEZLJm4M2B4fIwOV8WgllI
+OHBfeIT4PxnpybCPKYz965ghqV38/Oit1FgV2nCCIaSay1niPRrsPi7AZIIV2RMH
+nv84cnUm/sOmtYve4C2Uf9ILVcln7EuRj1drAIhpunuJ48DZNHco8lvIGupcSUSW
+KmlnlAOr//vYkRJq9gPQDEuMqaUUVufoQG0aMJ/xCxkndV94BsCUlpVK3d7IBm79
+ixir4s2/7zHERgDmInVCsnx96M0Y61fMn3v78X6Watbfkefgi4eNqbVG8xDWTbJj
+YE85uIsrhyBdhreY/fvVP+EUCPlgnuDIEKK8p+f5ZMJGqpf6ZyRERjnkSpVXVJrr
+6Gget30i3Kx093fyH93RrQB71MHSty8gSdAx7btdLGWgTp619dw=
+=Vd0X
 -----END PGP SIGNATURE-----]]></signature>
-    <url>https://swupdate.openvpn.org/community/releases/openvpn-2.4.8.tar.gz</url>
-    <version>2.4.8</version>
+    <url>https://swupdate.openvpn.org/community/releases/openvpn-2.4.9.tar.gz</url>
+    <version>2.4.9</version>
   </file>
 </metalink>
