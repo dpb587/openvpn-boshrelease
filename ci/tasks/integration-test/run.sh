@@ -6,7 +6,7 @@ fail () { echo "FAILURE: $1" >&2 ; exit 1 ; }
 
 cd repo
 
-start-bosh -o $PWD/ci/tasks/integration-test/bosh-ops.yml
+. /usr/local/bin/start-bosh -o $PWD/ci/tasks/integration-test/bosh-ops.yml
 
 source /tmp/local-bosh/director/env
 
