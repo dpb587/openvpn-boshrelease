@@ -13,6 +13,20 @@ stemcells:
 - alias: default
   os: ((os))
   version: latest
+properties:
+  openvpn: &openvpn
+    tls_server: ((server))
+    dh_pem: |
+      -----BEGIN DH PARAMETERS-----
+      MIIBCAKCAQEA/oih/YXvkf13npOIF5LW170/V5j4R20NjL/IzgdZUYMlsQtm5zMZ
+      LwA8Vk1v9UnSWkopAGuJ8gZxz4qKk2p2MLzHSDwXC5khGrrJlHfjn7H0lYilyFqn
+      2YhmfCQ7z7ih0jUS/iNf/+xUmfoJn/2OMEY3gmcAxAbtVRqNtGFwsTjtap3Rgbt9
+      /j7Xbrsp3JqSeWN3VSqMzAgUrjkkkv52HcDo4zA1KfN7m+ROj/uGxcrmvZr7G0RK
+      9yJ2f8I1x8EW3p+CmWhHcmoNyxxlfRHIsZ+82+BIessN99pSxCbjWvhggntFLRwC
+      fcrq5wk9ei7dzYjZHSPHqvhmmZgWKJZYQwIBAg==
+      -----END DH PARAMETERS-----
+    extra_configs:
+    - duplicate-cn
 instance_groups:
 - name: role1
   azs: [z1]
@@ -192,20 +206,6 @@ instance_groups:
   vm_type: default
   networks:
   - name: default
-properties:
-  openvpn: &openvpn
-    tls_server: ((server))
-    dh_pem: |
-      -----BEGIN DH PARAMETERS-----
-      MIIBCAKCAQEA/oih/YXvkf13npOIF5LW170/V5j4R20NjL/IzgdZUYMlsQtm5zMZ
-      LwA8Vk1v9UnSWkopAGuJ8gZxz4qKk2p2MLzHSDwXC5khGrrJlHfjn7H0lYilyFqn
-      2YhmfCQ7z7ih0jUS/iNf/+xUmfoJn/2OMEY3gmcAxAbtVRqNtGFwsTjtap3Rgbt9
-      /j7Xbrsp3JqSeWN3VSqMzAgUrjkkkv52HcDo4zA1KfN7m+ROj/uGxcrmvZr7G0RK
-      9yJ2f8I1x8EW3p+CmWhHcmoNyxxlfRHIsZ+82+BIessN99pSxCbjWvhggntFLRwC
-      fcrq5wk9ei7dzYjZHSPHqvhmmZgWKJZYQwIBAg==
-      -----END DH PARAMETERS-----
-    extra_configs:
-    - duplicate-cn
 variables:
 - name: ca
   type: certificate
