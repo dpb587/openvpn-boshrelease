@@ -55,7 +55,7 @@ bosh scp role1/0:/var/vcap/sys/log/openvpn/stdout.log role1-logs/stdout.log
 
 if ! grep -q "Initialization Sequence Completed" role1-logs/client-stdout.log* ; then
   fail "Client failed to connect to server"
-elif ! grep -q "/sbin/ifconfig tun1 192.168.206.2 netmask 255.255.255.0" role1-logs/client-stdout.log* ; then
+elif ! grep -q "net_addr_v4_add: 192.168.206.2/24 dev tun1" role1-logs/client-stdout.log* ; then
   fail "Client failed to establish tunnel correctly"
 elif ! grep -q "Initialization Sequence Completed" role1-logs/client-stdout.log* ; then
   fail "Client did not complete initialization sequence"
@@ -85,7 +85,7 @@ bosh scp role2/0:/var/vcap/sys/log/openvpn/stdout.log role2-logs/stdout.log
 
 if ! grep -q "Initialization Sequence Completed" role2-logs/client-stdout.log* ; then
   fail "Client failed to connect to server"
-elif ! grep -q "/sbin/ifconfig tun1 192.168.202.2 netmask 255.255.255.0" role2-logs/client-stdout.log* ; then
+elif ! grep -q "net_addr_v4_add: 192.168.202.2/24 dev tun1" role2-logs/client-stdout.log* ; then
   fail "Client failed to establish tunnel correctly"
 elif ! grep -q "Initialization Sequence Completed" role2-logs/client-stdout.log* ; then
   fail "Client did not complete initialization sequence"
@@ -118,7 +118,7 @@ bosh scp multi-client/0:/var/vcap/sys/log/openvpn-clients/client-role2.stdout.lo
 
 if ! grep -q "Initialization Sequence Completed" multi-client-logs/client-role1.stdout.log ; then
   fail "Client role1 failed to connect to server"
-elif ! grep -q "/sbin/ifconfig tun2 192.168.202.3 netmask 255.255.255.0" multi-client-logs/client-role1.stdout.log ; then
+elif ! grep -q "net_addr_v4_add: 192.168.202.3/24 dev tun2" multi-client-logs/client-role1.stdout.log ; then
   fail "Client role1 failed to establish tunnel correctly"
 elif ! grep -q "Initialization Sequence Completed" multi-client-logs/client-role1.stdout.log ; then
   fail "Client role1 did not complete initialization sequence"
@@ -130,7 +130,7 @@ fi
 
 if ! grep -q "Initialization Sequence Completed" multi-client-logs/client-role2.stdout.log ; then
   fail "Client role2 failed to connect to server"
-elif ! grep -q "/sbin/ifconfig tun3 192.168.206.3 netmask 255.255.255.0" multi-client-logs/client-role2.stdout.log ; then
+elif ! grep -q "net_addr_v4_add: 192.168.206.3/24 dev tun3" multi-client-logs/client-role2.stdout.log ; then
   fail "Client role2 failed to establish tunnel correctly"
 elif ! grep -q "Initialization Sequence Completed" multi-client-logs/client-role2.stdout.log ; then
   fail "Client role2 did not complete initialization sequence"
