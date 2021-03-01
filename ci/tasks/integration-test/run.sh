@@ -2,7 +2,12 @@
 
 set -eu
 
-fail () { echo "FAILURE: $1" >&2 ; exit 1 ; }
+fail () {
+  grep -e . *-logs/*.log* >&2
+  echo >&2
+  echo "FAILURE: $1" >&2
+  exit 1
+}
 
 cd repo
 
